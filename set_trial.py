@@ -15,21 +15,27 @@ coding = [{"tue_2", "tue_3"}, {"wed_2", "wed_3"}, {"thu_2", "thu_3"}]
 physics = [{"wed_4", "wed_5", "wed_6"}, {"fri_5", "fri_6", "fri_7"}]
 
 classlist = []
-
-for j in engineering:
-    for i in mathematic:
+sequances = []
+for num_eng, j in enumerate(engineering):
+    for num_math, i in enumerate(mathematic):
         if j.isdisjoint(i):
             eng_math = j.union(i)
-        for k in experiment:
-            if eng_math.isdisjoint(k):
-                eng_math_exp = eng_math.union(k)
-                for m in coding:
-                    if eng_math_exp.isdisjoint(m):
-                        eng_math_exp_cod = eng_math_exp.union(m)
-                        for n in physics:
-                            if eng_math_exp_cod.isdisjoint(n):
-                                eng_math_exp_cod_phy = eng_math_exp_cod.union(n)
-                                classlist.append(eng_math_exp_cod_phy)
+            for num_exp, k in enumerate(experiment):
+                if eng_math.isdisjoint(k):
+                    eng_math_exp = eng_math.union(k)
+                    for num_cod, m in enumerate(coding):
+                        if eng_math_exp.isdisjoint(m):
+                            eng_math_exp_cod = eng_math_exp.union(m)
+                            for num_phy, n in enumerate(physics):
+                                if eng_math_exp_cod.isdisjoint(n):
+                                    eng_math_exp_cod_phy = eng_math_exp_cod.union(n)
+                                    classlist.append(eng_math_exp_cod_phy)
+                                    sequances = [num_eng, num_math, num_exp, num_cod, num_phy]
+                                    print(sequances)
 
 
 print(len(classlist), classlist)
+
+print('=' * 50)
+for i in range(len(classlist)):
+    print(i + 1, classlist[i])
