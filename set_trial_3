@@ -1,0 +1,32 @@
+class SetMaker:
+    def __init__(self):
+        self.class_seq = []
+        self.class_set = []
+
+    def matcher(self, before, after):
+        self.class_seq = []
+        self.class_set = []
+        for i, class_set1 in enumerate(before):
+            for j, class_set2 in enumerate(after):
+                if class_set1.isdisjoint(class_set2):
+                    added_class = class_set1.union(class_set2)
+                    self.class_set.append(added_class)
+
+
+if __name__ == '__main__':
+    first = [{"mon_1", "mon_2", "mon_3"}, {"mon_4", "mon_5", "mon_6"}, {"wed_1", "wed_2", "wed_3"}]
+    second = [{"mon_5", "mon_6", "mon_7"}, {"thu_2", "thu_3", "thu_4"}, {"fri_1", "fri_2", "fri_3"}]
+    third = [{"mon_1", "mon_2", "mon_3", "wed_1", "wed_2", "wed_3"},
+             {"tue_1", "tue_2", "tue_3", "thu_1", "thu_2", "thu_3"}]
+    fourth = [{"tue_2", "tue_3"}, {"wed_2", "wed_3"}, {"thu_2", "thu_3"}]
+    fifth = [{"wed_4", "wed_5", "wed_6"}, {"fri_5", "fri_6", "fri_7"}]
+    class_list = [first, second, third, fourth, fifth]
+
+    first_second = SetMaker()
+    first_second.matcher(first, second)
+    print(first_second.class_set)
+    first_second.matcher(first_second.class_set, third)
+    print(first_second.class_set)
+    first_second.matcher(first_second.class_set, fourth)
+    first_second.matcher(first_second.class_set, fifth)
+    print(len(first_second.class_set))
