@@ -24,9 +24,7 @@ if __name__ == '__main__':
 
     first_second = SetMaker()
     first_second.matcher(first, second)
-    print(first_second.class_set)
     first_second.matcher(first_second.class_set, third)
-    print(first_second.class_set)
     first_second.matcher(first_second.class_set, fourth)
     first_second.matcher(first_second.class_set, fifth)
-    print(len(first_second.class_set))
+    print(first_second.class_set)

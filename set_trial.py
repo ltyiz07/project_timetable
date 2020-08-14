@@ -25,7 +25,8 @@ for num_eng, j in enumerate(engineering):
                 if eng_math.isdisjoint(k):
                     eng_math_exp = eng_math.union(k)
                     for num_cod, m in enumerate(coding):
-                        if eng_math_exp.isdisjoint(m):
+                        if eng_math_exp\
+                                .isdisjoint(m):
                             eng_math_exp_cod = eng_math_exp.union(m)
                             for num_phy, n in enumerate(physics):
                                 if eng_math_exp_cod.isdisjoint(n):
