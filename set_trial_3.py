@@ -26,6 +26,8 @@ class SetMaker:
 
 
 if __name__ == '__main__':
+    from table_trial_2 import Sort
+
     first = [{"mon_1", "mon_2", "mon_3"}, {"mon_4", "mon_5", "mon_6"}, {"wed_1", "wed_2", "wed_3"}]
     second = [{"mon_5", "mon_6", "mon_7"}, {"thu_2", "thu_3", "thu_4"}, {"fri_1", "fri_2", "fri_3"}]
     third = [{"mon_1", "mon_2", "mon_3", "wed_1", "wed_2", "wed_3"},
@@ -40,3 +42,9 @@ if __name__ == '__main__':
     test_1.matcher_1(test_1.class_set, fifth, test_1.class_seq)
     for i in range(len(test_1.class_seq)):
         print(test_1.class_seq[i])
+
+    trial_1 = Sort()
+    time_sorted_list = []
+    for i in test_1.class_set:
+        time_sorted_list.append(trial_1.sort_time(i))
+    print(time_sorted_list)
