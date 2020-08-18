@@ -64,7 +64,6 @@ class Sort:
 
 
 
-
 if __name__ == '__main__':
     set = {'thu_2', 'wed_2', 'mon_2', 'tue_1', 'tue_3', 'mon_3', 'tue_2', 'thu_3', 'wed_3', 'wed_6', 'wed_5', 'wed_4',
            'mon_6', 'mon_1', 'thu_1', 'mon_7', 'mon_5'}
