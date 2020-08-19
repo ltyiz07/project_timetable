@@ -1,28 +1,29 @@
 # set_trial.py 의 결과와 동일함
 # sequence 알아낼 방법 찾기 ==>> 해결함
 # sequence 알아내는 과정에서 함수기능 지저분해짐 통일시키는 방법찾기
+from table_trial_2 import Sort
 
-class SetMaker:
+class SetMaker(Sort):
     def __init__(self):
+        super().__init__(self)
         self.class_seq = []
         self.class_set = []
 
-    def matcher_1(self, before, after, seq = []):
+    def matcher_1(self, before, after, seq=[]):
         self.__init__()
-        for i, class_set1 in enumerate(before):
+        for k, class_set1 in enumerate(before):
             for j, class_set2 in enumerate(after):
                 if class_set1.isdisjoint(class_set2):
                     # SET
                     added_class = class_set1.union(class_set2)
                     self.class_set.append(added_class)
                     # SEQUENCE
-                    if seq == []:
-                        added_seq = [i, j]
+                    if not seq:
+                        added_seq = [k, j]
                         self.class_seq.append(added_seq)
                     else:
-                        added_seq = seq[i] + [j]
+                        added_seq = seq[k] + [j]
                         self.class_seq.append(added_seq)
-
 
 
 if __name__ == '__main__':
@@ -54,4 +55,3 @@ if __name__ == '__main__':
     print(time_sorted_list)
     for i in time_sorted_list:
         print(i)
-

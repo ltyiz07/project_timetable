@@ -1,6 +1,9 @@
 class Sort:
+    """
+    set_trial 에서 출력한 data 를 table 에 올려줌
+    """
     def __init__(self):
-        pass
+        self.lines = [[],[],[],[],[],[],[]]
 
     def sort_time(self, set_1):
         """
@@ -32,14 +35,13 @@ class Sort:
         for i in set_1:
             if i[4] == '7':
                 list_time[6].append(i)
-        list_time = list_time
         return list_time
 
     def table(self, set_3):
         """
                 2차원 리스트의 수업시간표를 받아서 테이블을 만들어줌.
                 :param set_3: 하나의 시간표 (2차원 리스트)
-                :return: 시간표
+                :return: ...
                 """
         dash = "{0:^11}".format('-')
         first_line = "   {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
@@ -57,25 +59,16 @@ class Sort:
                     d = "{0:^11}".format(set_3[j][i])
                 if set_3[j][i][0:3] == 'fri':
                     e = "{0:^11}".format(set_3[j][i])
-            class_line_1 = "({0}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
-            print(class_line_1)
-
-    # def sort_week(self, set_2):
-    #     """
-    #     필요 없게 되었다......
-    #     2차원 리스트 의 수업시간표를 받아서 이를 요일순으로 정렬해준다.
-    #     :param set_2: 하나의 시간표 (2차원 리스트)
-    #     :return:
-    #     """
-    #     # 5 times iterating
-    #     # 'i' is one of the class set
-    #     pass
+            class_line = "({0}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
+            print(class_line)
+            self.lines[j] = class_line
+        print(self.lines)       # indexing 가능
 
 
 if __name__ == '__main__':
-    set = {'thu_2', 'wed_2', 'mon_2', 'tue_1', 'tue_3', 'mon_3', 'tue_2', 'thu_3', 'wed_3', 'wed_6', 'wed_5', 'wed_4',
+    set_1 = {'thu_2', 'wed_2', 'mon_2', 'tue_1', 'tue_3', 'mon_3', 'tue_2', 'thu_3', 'wed_3', 'wed_6', 'wed_5', 'wed_4',
            'mon_6', 'mon_1', 'thu_1', 'mon_7', 'mon_5'}
 
     test = Sort()
-    print(test.sort_time(set))
+    print(test.sort_time(set_1))
     test.table([['thu_1', 'fri_1', 'tue_1'], ['tue_2', 'wed_2', 'fri_2', 'thu_2'], ['thu_3', 'fri_3', 'tue_3', 'wed_3'], ['mon_4'], ['fri_5', 'mon_5'], ['fri_6', 'mon_6'], ['fri_7']])
