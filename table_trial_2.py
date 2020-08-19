@@ -1,3 +1,5 @@
+#table_trial_2   파일명
+
 class Sort:
     """
     set_trial 에서 출력한 data 를 table 에 올려줌
@@ -62,13 +64,8 @@ class Sort:
             class_line = "({0}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
             print(class_line)
             self.lines[j] = class_line
-        print(self.lines)       # indexing 가능
+        # print(self.lines)       # indexing 가능
 
 
 if __name__ == '__main__':
-    set_1 = {'thu_2', 'wed_2', 'mon_2', 'tue_1', 'tue_3', 'mon_3', 'tue_2', 'thu_3', 'wed_3', 'wed_6', 'wed_5', 'wed_4',
-           'mon_6', 'mon_1', 'thu_1', 'mon_7', 'mon_5'}
-
-    test = Sort()
-    print(test.sort_time(set_1))
-    test.table([['thu_1', 'fri_1', 'tue_1'], ['tue_2', 'wed_2', 'fri_2', 'thu_2'], ['thu_3', 'fri_3', 'tue_3', 'wed_3'], ['mon_4'], ['fri_5', 'mon_5'], ['fri_6', 'mon_6'], ['fri_7']])
+    pass
