@@ -1,5 +1,5 @@
 from set_trial_3 import SetMaker
-
+# matcher_1    =>    sort_time    =>    table
 first = [{"mon_1", "mon_2", "mon_3"}, {"mon_4", "mon_5", "mon_6"}, {"wed_1", "wed_2", "wed_3"}]
 second = [{"mon_5", "mon_6", "mon_7"}, {"thu_2", "thu_3", "thu_4"}, {"fri_1", "fri_2", "fri_3"}]
 third = [{"mon_1", "mon_2", "mon_3", "wed_1", "wed_2", "wed_3"},
@@ -17,4 +17,9 @@ trial.matcher_1(trial.class_set, fourth)
 trial.matcher_1(trial.class_set, fifth)
 print(trial.class_set)
 
-trial.sort_time(trial.class_set[0])
+time_sorted_list = []
+for i in trial.class_set:
+    time_sorted_list.append(trial.sort_time(i))
+for j, i in enumerate(time_sorted_list):
+    print((j + 1), '*' * 55)
+    trial.table(i)
