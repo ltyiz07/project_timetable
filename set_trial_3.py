@@ -40,12 +40,16 @@ if __name__ == '__main__':
     test_1.matcher_1(test_1.class_set, third, test_1.class_seq)
     test_1.matcher_1(test_1.class_set, fourth, test_1.class_seq)
     test_1.matcher_1(test_1.class_set, fifth, test_1.class_seq)
-    for i in range(len(test_1.class_seq)):
-        print(test_1.class_seq[i])
+    print(test_1.class_seq)
+    print(test_1.class_set)
+    print('=' * 100)
+    # for i in range(len(test_1.class_seq)):
+    #     print(test_1.class_seq[i])
 
     trial_1 = Sort()
     time_sorted_list = []
     for i in test_1.class_set:
+        print(i)
         time_sorted_list.append(trial_1.sort_time(i))
     print(time_sorted_list)
     for i in time_sorted_list:
