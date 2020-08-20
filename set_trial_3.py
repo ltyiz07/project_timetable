@@ -54,8 +54,6 @@ if __name__ == '__main__':
         time_sorted_list.append(trial_1.sort_time(i))    # 리스트에 각시간별로 분류해 정리
     print('=' * 100)
 
+
     for i in time_sorted_list:    # 시간별로 정리된 시간표를 출력
         trial_1.table(i)
-
-
-
