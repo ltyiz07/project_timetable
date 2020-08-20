@@ -13,11 +13,11 @@ fifth = [{"wed_4", "wed_5", "wed_6"}, {"fri_5", "fri_6", "fri_7"}]
 trial = SetMaker()
 
 trial.matcher_1(first, second)
-trial.matcher_1(trial.class_set, second)
-trial.matcher_1(trial.class_set, third)
-trial.matcher_1(trial.class_set, fourth)
-trial.matcher_1(trial.class_set, fifth)
-print(trial.class_set)
+trial.matcher_1(trial.class_set, third, trial.class_seq)
+trial.matcher_1(trial.class_set, fourth, trial.class_seq)
+trial.matcher_1(trial.class_set, fifth, trial.class_seq)
+for i in trial.class_set:
+    print(i)
 
 time_sorted_list = []
 for i in trial.class_set:
