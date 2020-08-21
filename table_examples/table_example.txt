@@ -1,11 +1,12 @@
-    mon      tue      wed      thu      fri
-1    mon_1    tue_1    -        thu_1    -
-2    mon_2    tue_2    wed_2    thu_2    -
-3    mon_3    tue_3    wed_3    thu_3    -
-4    -        -        wed_4    -        -
-5    mon_5    -        wed_5    -        -
-6    mon_6    -        wed_6    -        -
-7    mon_7    -        -        -        -
-
-
-{'thu_2', 'wed_2', 'mon_2', 'tue_1', 'tue_3', 'mon_3', 'tue_2', 'thu_3', 'wed_3', 'wed_6', 'wed_5', 'wed_4', 'mon_6', 'mon_1', 'thu_1', 'mon_7', 'mon_5'}
+2 **************************************************
+       mon        tue        wed        thu        fri    
+(1)   mon_1      tue_1        -        thu_1        -     
+(2)   mon_2      tue_2      wed_2      thu_2        -     
+(3)   mon_3      tue_3      wed_3      thu_3        -     
+(4)     -          -          -          -          -     
+(5)   mon_5        -          -          -        fri_5   
+(6)   mon_6        -          -          -        fri_6   
+(7)   mon_7        -          -          -        fri_7   
+(8)     -          -          -          -          -     
+(9)     -          -          -          -        fri_9   
+[0, 0, 1, 1, 1]
