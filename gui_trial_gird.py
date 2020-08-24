@@ -31,6 +31,7 @@ class Form(QWidget):
         layout_base = QBoxLayout(QBoxLayout.TopToBottom, self)
         self.setLayout(layout_base)
 
+        # 수업 갯수 목록 라벨
         grp_1 = QGroupBox("수업 목록")
         layout_base.addWidget(grp_1)
         layout = QGridLayout()
@@ -45,6 +46,7 @@ class Form(QWidget):
         layout.addWidget(QLabel("Class 9. "), 8, 0)
         layout.addWidget(QLabel("Class 10. "), 9, 0)
 
+        # 수업 이름들 선언
         self.class_1 = QLineEdit()
         self.class_2 = QLineEdit()
         self.class_3 = QLineEdit()
@@ -56,6 +58,19 @@ class Form(QWidget):
         self.class_9 = QLineEdit()
         self.class_10 = QLineEdit()
 
+        # 수업 이름들 인풋 연결...
+        # self.class_1.textChanged.connect(self.text_edited)
+        # self.class_2.
+        # self.class_3
+        # self.class_4
+        # self.class_5
+        # self.class_6
+        # self.class_7
+        # self.class_8
+        # self.class_9
+        # self.class_10
+
+        # 수업 이름 인풋들 배치
         layout.addWidget(self.class_1, 0, 1)
         layout.addWidget(self.class_2, 1, 1)
         layout.addWidget(self.class_3, 2, 1)
@@ -68,27 +83,25 @@ class Form(QWidget):
         layout.addWidget(self.class_10, 9, 1)
         grp_1.setLayout(layout)
 
-        next_1 = QPushButton("next_1", self)
+        # 첫번째 화면 next 버튼
+        next_1 = QPushButton("next", self)
         next_1.clicked.connect(self.firstnext_1Clicked)
         layout_base.addWidget(next_1)
 
+    # def text_edited(self, text):
+    #     self.btn_class_1.setText(text)
+    #     self.btn_class_1.adjustSize()
+
     def firstnext_1Clicked(self):
-        self.sec = SecondWindow()
-        self.sec.show()
-        print(self.class_1)
+        # 다음 클래스 실행
+        print(self.class_1.text())
+        self.SetTime()
         self.close()
+        self.SetTime.show()
 
-
-# # 작동 안함... 수정하기
-#     def firstnext_1Clicked(self):
-#         self.close()
-#         self.SecondWinow.SetTime()
-#         self.show()
-
-class SecondWindow(QWidget):
+class SecondWindow(Form):
     def __init__(self):
         super().__init__()
-        self.SetTime()
 
     def SetTime(self):
         self.setWindowTitle("Second Window - Set Time")
@@ -98,20 +111,30 @@ class SecondWindow(QWidget):
         layout_base = QBoxLayout(QBoxLayout.LeftToRight, self)
         self.setLayout(layout_base)
 
+        self.btn_class_1 = QPushButton(None)
+        self.btn_class_2 = QPushButton(None)
+        self.btn_class_3 = QPushButton(None)
+        self.btn_class_4 = QPushButton(None)
+        self.btn_class_5 = QPushButton(None)
+        self.btn_class_6 = QPushButton(None)
+        self.btn_class_7 = QPushButton(None)
+        self.btn_class_8 = QPushButton(None)
+        self.btn_class_9 = QPushButton(None)
+        self.btn_class_10 = QPushButton(None)
         # 첫 번째 그룹 QBoxLayout
         grp_1 = QGroupBox("Class Name")
         layout_base.addWidget(grp_1)
         layout = QGridLayout()
-        layout.addWidget(QPushButton("Class Number1"))
-        layout.addWidget(QPushButton("CLass number2"))
-        layout.addWidget(QPushButton("CLass number3"))
-        layout.addWidget(QPushButton("CLass number4"))
-        layout.addWidget(QPushButton("CLass number5"))
-        layout.addWidget(QPushButton(None))
-        layout.addWidget(QPushButton(None))
-        layout.addWidget(QPushButton(None))
-        layout.addWidget(QPushButton(None))
-        layout.addWidget(QPushButton(None))
+        layout.addWidget(self.btn_class_1)
+        layout.addWidget(self.btn_class_2)
+        layout.addWidget(self.btn_class_3)
+        layout.addWidget(self.btn_class_4)
+        layout.addWidget(self.btn_class_5)
+        layout.addWidget(self.btn_class_6)
+        layout.addWidget(self.btn_class_7)
+        layout.addWidget(self.btn_class_8)
+        layout.addWidget(self.btn_class_9)
+        layout.addWidget(self.btn_class_10)
         grp_1.setLayout(layout)
 
         # 두 번째 그룹 QGridLayout
@@ -144,10 +167,8 @@ class SecondWindow(QWidget):
         layout_base.addWidget(next_1)
 
 
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    form = Form()
+    form = SecondWindow()
     form.show()
     exit(app.exec_())
-
