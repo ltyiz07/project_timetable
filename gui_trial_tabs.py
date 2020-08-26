@@ -41,6 +41,43 @@ class MyApp(QWidget):
     def initUI(self):
         #
         # tab1 레이아웃 설정
+        self.Tab1()
+        # tab1 레이아웃 설정 반영
+        #
+
+        #
+        # tab2 레이아웃 설정
+        self.Tab2()
+        # tab2 레이아웃 설정 반영
+        #
+
+        self.tabs.addTab(self.tab1, "수업 이름 설정")
+        self.tabs.addTab(self.tab2, "수업 시간들 추가")
+        self.tabs.addTab(self.tab3, "결과...")
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.tabs)
+
+        self.setLayout(vbox)
+
+        self.setWindowTitle('QTabWidget')
+        self.setWindowIcon(QIcon('lotus.png'))
+        self.setGeometry(1200, 500, 500, 500)
+        self.show()
+
+    def next1_clicked(self):
+        print("next1 clicked")
+        for i in range(10):
+            print(self.classes_input[i].text())
+        for i in range(10):
+            self.btns_name[i].setText(self.classes_input[i].text())
+        for n in self.btns_name:
+            n.setCheckable(True)
+            n.toggle()
+        self.tabs.setCurrentIndex(1)
+
+    def Tab1(self):
+        # setting for tab1
         layout_1 = QGridLayout()
         for i in range(10):
             layout_1.addWidget(QLabel("Class %d." % (i+1)), i, 0)
@@ -53,11 +90,9 @@ class MyApp(QWidget):
         layout_1.addWidget(btn_next, 11, 2)
         btn_next.clicked.connect(self.next1_clicked)
         self.tab1.setLayout(layout_1)
-        # tab1 레이아웃 설정 반영
-        #
 
-        #
-        # tab2 레이아웃 설정
+    def Tab2(self):
+        # setting for tab2
         layout_2 = QHBoxLayout()
         self.tab2.setLayout(layout_2)
         # 1. class 이름 목록
@@ -87,7 +122,7 @@ class MyApp(QWidget):
             self.btns_time.append(QPushButton(time[i]))
             group_33.addWidget(self.btns_time[i])
         # SET 버튼 디자인 설정
-        self.btn_set.setStyleSheet("color: red; selection-color: yellow; background-color: yellow")
+        self.btn_set.setStyleSheet("color: red; selection-color: yellow; background-color: yellow; font: bold 14px")
         # self.btn_set.mou
         group_33.addWidget(self.btn_set)
 
@@ -100,35 +135,6 @@ class MyApp(QWidget):
         layout_2.addWidget(group_3)
 
         self.tab2.setLayout(layout_2)
-        # tab2 레이아웃 설정 반영
-        #
-
-        self.tabs.addTab(self.tab1, "수업 이름 설정")
-        self.tabs.addTab(self.tab2, "수업 시간들 추가")
-        self.tabs.addTab(self.tab3, "결과...")
-
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.tabs)
-
-        self.setLayout(vbox)
-
-        self.setWindowTitle('QTabWidget')
-        self.setWindowIcon(QIcon('lotus.png'))
-        self.setGeometry(1200, 500, 500, 500)
-        self.show()
-
-    def next1_clicked(self):
-        print("next1 clicked")
-        for i in range(10):
-            print(self.classes_input[i].text())
-        for i in range(10):
-            self.btns_name[i].setText(self.classes_input[i].text())
-        for n in self.btns_name:
-            n.setCheckable(True)
-            n.toggle()
-        self.tabs.setCurrentIndex(1)
-
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

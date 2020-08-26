@@ -40,10 +40,18 @@ class Widget_1(StWidgetForm):
     def __init__(self):
         super(Widget_1, self).__init__()
         self.setTitle("Widget_1")
-        self.box.addWidget(QPushButton("Test_1"))
-        self.box.addWidget(QPushButton("Test_2"))
+        self.button_1 = QPushButton('buton', self)
+        self.button_1.setCheckable(True)
+        # self.button_1.toggled()
+        self.button_1.clicked.connect(self.checked_1)
+        self.button_1.setText("test_1")
+        self.box.addWidget(self.button_1)
+        self.button_2 = QPushButton("why not")
+        self.box.addWidget(self.button_2)
         self.box.addWidget(QPushButton("Test_3"))
 
+    def checked_1(self):
+        print(self.button_1.isChecked())
 
 class Widget_2(StWidgetForm):
     def __init__(self):

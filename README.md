@@ -1,4 +1,9 @@
-
+        self.button_1 = QPushButton('buton', self)
+        self.button_1.setCheckable(True)
+        # self.button_1.toggled()
+        self.button_1.clicked.connect(self.checked_1)
+    def checked_1(self):
+        print(self.button_1.isChecked())
 # Time Table Maker
  
 gui input
@@ -27,3 +32,4 @@ set button 누를 때마다 값 반영, pushbotton 토글 초기화.
 만들어 보여주기...
 
 ## trial_3 QStackedWidget 을 사용하여 구성...<= 이방법이 가장 깔끔할듯...
+
