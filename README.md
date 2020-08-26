@@ -23,4 +23,7 @@ gui_trial_grid ==>> 첫번째 윈도우 클래스에서 수업 이름 받고 이
 두번째 탭 pushbottone들에 토글 반영하기, set button 추가하기
 set button 누를 때마다 값 반영, pushbotton 토글 초기화.
 
+두번째 탭 수업 이름들 라디오로 바꾸고 첫번째 탭에서 입력한 만큼만
+만들어 보여주기...
+
 ## trial_3 QStackedWidget 을 사용하여 구성...<= 이방법이 가장 깔끔할듯...

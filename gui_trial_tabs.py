@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QSpacerItem
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import QTextEdit
-from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QGroupBox
 
 from PyQt5.QtWidgets import QBoxLayout
@@ -33,6 +33,9 @@ class MyApp(QWidget):
 
         self.classes_input = []     # input text from first tab 'lineEdit' to next tab 'btns_name'
         self.btns_name = []         # set by the classes_input with next push button
+        self.btns_week = []         # btns for week on second window
+        self.btns_time = []         # btns for time on second window
+        self.btn_set = QPushButton("SET")            # SET 버튼 누를 때마다 데이터 저장
         self.initUI()               #
 
     def initUI(self):
@@ -57,12 +60,11 @@ class MyApp(QWidget):
         # tab2 레이아웃 설정
         layout_2 = QHBoxLayout()
         self.tab2.setLayout(layout_2)
-
         # 1. class 이름 목록
         group_1 = QGroupBox("class")
         group_11 = QVBoxLayout()
         for i in range(10):
-            self.btns_name.append(QPushButton())
+            self.btns_name.append(QRadioButton())
             group_11.addWidget(self.btns_name[i])    # lineEdit 과 connect 하기
         group_1.setLayout(group_11)
         # class 이름 목록 설정 완료
@@ -72,11 +74,24 @@ class MyApp(QWidget):
         group_2 = QGroupBox("week")
         group_22 = QVBoxLayout()
         for i in range(5):
-            pass
+            self.btns_week.append(QPushButton(week[i]))
+            group_22.addWidget(self.btns_week[i])
+        group_2.setLayout(group_22)
         # week 목록 설정 완료
 
         # 3. time 인풋
+        time = ('1', '2', '3', '4', '5', '6', '7', '8', '9')
         group_3 = QGroupBox("time")
+        group_33 = QVBoxLayout()
+        for i in range(9):
+            self.btns_time.append(QPushButton(time[i]))
+            group_33.addWidget(self.btns_time[i])
+        # SET 버튼 디자인 설정
+        self.btn_set.setStyleSheet("color: red; selection-color: yellow; background-color: yellow")
+        # self.btn_set.mou
+        group_33.addWidget(self.btn_set)
+
+        group_3.setLayout(group_33)
 
         # time 인풋 설정 완료
 
@@ -84,7 +99,7 @@ class MyApp(QWidget):
         layout_2.addWidget(group_2)
         layout_2.addWidget(group_3)
 
-        self.tab1.setLayout(layout_2)
+        self.tab2.setLayout(layout_2)
         # tab2 레이아웃 설정 반영
         #
 
@@ -108,7 +123,11 @@ class MyApp(QWidget):
             print(self.classes_input[i].text())
         for i in range(10):
             self.btns_name[i].setText(self.classes_input[i].text())
+        for n in self.btns_name:
+            n.setCheckable(True)
+            n.toggle()
         self.tabs.setCurrentIndex(1)
+
 
 
 if __name__ == '__main__':

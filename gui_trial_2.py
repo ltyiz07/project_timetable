@@ -24,7 +24,8 @@ class MyApp(QWidget):
         btn.setToolTip('This is a <b>QPushButton</b> widget')
         btn.move(400, 460)
         btn.resize(btn.sizeHint())
-        btn.clicked.connect(QCoreApplication.instance().quit)
+        btn.setCheckable(True)
+        btn.toggle()
 
         self.show()
 
