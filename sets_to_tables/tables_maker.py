@@ -10,6 +10,7 @@ class Sort:
         # lines 리스트 내부의 리스트 갯수: 첫째줄 + N교시 = 10
         self.lines = [[], [], [], [], [], [], [], [], [], []]
         self.show = ""
+        self.time_sorted_list = []
         self.show_list = []
 
     def sort_with_time(self, set_1):
@@ -58,7 +59,6 @@ class Sort:
                 """
         dash = "{0:^11}".format('-')
         first_line = "   {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
-        print(first_line)
         for j in range(9):
             a, b, c, d, e = dash, dash, dash, dash, dash
             for i in range(len(set_3[j])):
@@ -82,7 +82,7 @@ class Sort:
         show = ""
         for i in range(10):
             show += str(self.lines[i]) + '\n'
-        self.show_list.append(show)
+        self.show_list.append(show)     #
         # print(self.lines)       # indexing 가능
 
 

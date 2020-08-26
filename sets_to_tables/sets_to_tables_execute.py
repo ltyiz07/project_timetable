@@ -17,26 +17,27 @@ class_input_10 = [{}]
 
 trial = SetMaker()
 
-trial.matcher_1(class_input_1, class_input_2)
-trial.matcher_1(trial.class_set, class_input_3, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_4, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_5, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_6, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_7, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_8, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_9, trial.class_seq)
-trial.matcher_1(trial.class_set, class_input_10, trial.class_seq)
+trial.matcher_1(class_input_1)
+trial.matcher_1(class_input_2)
+trial.matcher_1(class_input_3)
+trial.matcher_1(class_input_4)
+trial.matcher_1(class_input_5)
+trial.matcher_1(class_input_6)
+trial.matcher_1(class_input_7)
+trial.matcher_1(class_input_8)
+trial.matcher_1(class_input_9)
+trial.matcher_1(class_input_10)
 
-time_sorted_list = []
+
 for i in trial.class_set:
-    time_sorted_list.append(trial.sort_with_time(i))
+    trial.time_sorted_list.append(trial.sort_with_time(i))
 
 # 출력
 # for j, i in enumerate(time_sorted_list):
 #     print((j + 1), '*' * 55)
 #     trial.table(i)
 #     print(trial.class_seq[j])
-for i in time_sorted_list:
+for i in trial.time_sorted_list:
     trial.table(i)
 
 print('=' * 100)
@@ -44,6 +45,6 @@ print('=' * 100)
 # for i in range(10):
 #     show = show + trial.lines[i] + '\n'
 
-for i in range(len(time_sorted_list)):
+for i in range(len(trial.time_sorted_list)):
     print(i + 1, '*' * 50)
     print(trial.show_list[i])
