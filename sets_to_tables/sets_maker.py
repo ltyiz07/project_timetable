@@ -13,21 +13,32 @@ class SetMaker(Sort):
         self.class_seq = []
         self.class_set = []
 
-    def matcher_1(self, before, after, seq=[]):
+    def matcher_1(self, input):
+        class_set_temp = []
+
+        if not self.class_set:
+            for set_1 in input:
+                self.class_set.append(set_1)
+            return
+
+        for i in self.class_set:
+            class_set_temp.append(i)
+
         self.__init__()     # 불러올때마다 초기화
-        for k, class_set1 in enumerate(before):
-            for m, class_set2 in enumerate(after):
+        for k, class_set1 in enumerate(input):
+            for m, class_set2 in enumerate(class_set_temp):
                 if class_set1.isdisjoint(class_set2):
                     # SET
-                    added_class = class_set1.union(class_set2)
-                    self.class_set.append(added_class)
+                    unioned_set = class_set1.union(class_set2)
+                    self.class_set.append(unioned_set)
+
                     # SEQUENCE
-                    if not seq:
-                        added_seq = [k, m]
-                        self.class_seq.append(added_seq)
-                    else:
-                        added_seq = seq[k] + [m]
-                        self.class_seq.append(added_seq)
+                    # if not seq:
+                    #     added_seq = [k, m]
+                    #     self.class_seq.append(added_seq)
+                    # else:
+                    #     added_seq = seq[k] + [m]
+                    #     self.class_seq.append(added_seq)
 
 
 if __name__ == '__main__':
@@ -42,15 +53,31 @@ if __name__ == '__main__':
 
 # 다섯번 실행해줘야함... 앞으로 수정하기
     test_1 = SetMaker()
-    test_1.matcher_1(first, second)
-    test_1.matcher_1(test_1.class_set, third, test_1.class_seq)
-    test_1.matcher_1(test_1.class_set, fourth, test_1.class_seq)
-    test_1.matcher_1(test_1.class_set, fifth, test_1.class_seq)
+    test_1.matcher_1(first)
+    for i in test_1.class_set:
+        print(i)
+    print('=' * 100)
+    test_1.matcher_1(second)
+    for i in test_1.class_set:
+        print(i)
+    print('=' * 100)
+    test_1.matcher_1(third)
+    for i in test_1.class_set:
+        print(i)
+    print('=' * 100)
+    test_1.matcher_1(fourth)
+    for i in test_1.class_set:
+        print(i)
+    print('=' * 100)
+    test_1.matcher_1(fifth)
+    for i in test_1.class_set:
+        print(i)
     print('=' * 100)
 
+    print('=' * 100)
     time_sorted_list = []
-    for j, i in enumerate(test_1.class_set):
-        print(test_1.class_seq[j])    # 수업 시퀀스
+    for i in test_1.class_set:
+        # print(test_1.class_seq[j])    # 수업 시퀀스
         print(i)
         time_sorted_list.append(test_1.sort_with_time(i))    # 리스트에 각시간별로 분류해 정리
     print('=' * 100)
@@ -58,4 +85,4 @@ if __name__ == '__main__':
     for j, i in enumerate(time_sorted_list):    # 시간별로 정리된 시간표를 출력
         print(j + 1, '*' * 50)
         test_1.table(i)
-        print(test_1.class_seq[j])
+        # print(test_1.class_seq[j])
