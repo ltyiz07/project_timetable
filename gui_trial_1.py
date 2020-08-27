@@ -16,6 +16,8 @@ class MyApp(QWidget):
       self.setWindowIcon(QIcon('lotus.png'))
       self.setGeometry(300, 300, 300, 200)
       self.show()
+      layout = QGroupBox()
+      self.btn1 = QPushButton()
 
 
 
