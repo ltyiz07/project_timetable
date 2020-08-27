@@ -21,9 +21,17 @@ from PyQt5.QtWidgets import QFormLayout
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
 
+class Data(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.btns_mon_time = []         # QPushButton for time on second window
+        self.btns_tue_time = []
+        self.btns_wed_time = []
+        self.btns_thu_time = []
+        self.btns_fri_time = []
 
-class MyApp(QWidget):
 
+class MyApp(Data):
     def __init__(self):
         super().__init__()
         # setting tabs
@@ -39,7 +47,6 @@ class MyApp(QWidget):
         self.classes_input = []     # input text from first tab 'lineEdit' to next tab 'btns_name'
         self.btns_name = []         # QRadioButton, set by the classes_input with next push button
         self.btns_week = []         # QRadioButton for week on second window
-        self.btns_time = []         # QPushButton for time on second window
         self.btn_set = QPushButton("SET")            # SET 버튼 누를 때마다 데이터 저장
         self.initUI()               #
 
@@ -106,6 +113,7 @@ class MyApp(QWidget):
         for i in range(10):
             self.btns_name.append(QRadioButton())
             group_11.addWidget(self.btns_name[i])    # lineEdit 과 connect 하기
+            self.btns_name[i].clicked.connect(self.week_clicked)
         group_1.setLayout(group_11)
         # class 이름 목록 설정 완료
 
@@ -116,6 +124,7 @@ class MyApp(QWidget):
         for i in range(5):
             self.btns_week.append(QRadioButton(week[i]))
             group_22.addWidget(self.btns_week[i])
+            self.btns_week[i].clicked.connect(self.week_changed)
         group_2.setLayout(group_22)
 
         layout_2.addWidget(group_1, 0, 0)
@@ -129,18 +138,46 @@ class MyApp(QWidget):
 
         self.tab2.setLayout(layout_2)
 
+    def week_clicked(self):
+        for t in range(9):
+            self.btns_mon_time[t].setChecked(False)
+            self.btns_tue_time[t].setChecked(False)
+            self.btns_wed_time[t].setChecked(False)
+            self.btns_thu_time[t].setChecked(False)
+            self.btns_fri_time[t].setChecked(False)
+
+
+class Disk(MyApp):
+    def __init__(self):
+        super().__init__()
+
     def set_stack(self):
-        self.mon = QGroupBox('monday')
+        # 월요일
+        self.mon = QGroupBox('월요일')
         self.mon_box = QVBoxLayout()
         self.monday()           # 이동해서 세팅
         self.mon.setLayout(self.mon_box)
+        # 화요일
+        self.tue = QGroupBox('화요일')
+        self.tue_box = QVBoxLayout()
+        self.tuesday()
+        self.tue.setLayout(self.tue_box)
+        # 수요일
+        self.wed = QGroupBox('수요일')
+        self.wed_box = QVBoxLayout()
+        self.wednesday()
+        self.wed.setLayout(self.wed_box)
+        # 목요일
+        self.thu = QGroupBox('목요일')
+        self.thu_box = QVBoxLayout()
+        self.thursday()
+        self.thu.setLayout(self.thu_box)
+        # 금요일
+        self.fri = QGroupBox('금요일')
+        self.fri_box = QVBoxLayout()
+        self.friday()
+        self.fri.setLayout(self.fri_box)
 
-        self.tue = QWidget()
-        tuesday = QGridLayout()
-        self.tue.setLayout(tuesday)
-        self.wed = QWidget()
-        self.thu = QWidget()
-        self.fri = QWidget()
 
         self.stack.addWidget(self.mon)
         self.stack.addWidget(self.tue)
@@ -148,7 +185,7 @@ class MyApp(QWidget):
         self.stack.addWidget(self.thu)
         self.stack.addWidget(self.fri)
         self.stack.setMaximumSize(150, 450)
-        self.stack.setCurrentIndex(0)
+
 
     def set_clicked(self):
         for i in range(10):
@@ -159,28 +196,58 @@ class MyApp(QWidget):
             if self.btns_week[j].isChecked():
                 week_value = j
                 break
+        print(self.btns_mon_time[0].isChecked())
+        for i in range(9):
+            if self.btns_mon_time[i] == True:
+                self.input_time_data
 
-        print(name_value, "    ", week_value, "    ")
+        for t in range(9):
+            self.btns_mon_time[t].setChecked(False)
+            self.btns_tue_time[t].setChecked(False)
+            self.btns_wed_time[t].setChecked(False)
+            self.btns_thu_time[t].setChecked(False)
+            self.btns_fri_time[t].setChecked(False)
+
+        print(self.classes_input[i].text(), "   ", name_value, "    ", week_value, "    ")
 
     def monday(self):
-        for j, i in enumerate(self.week):
-            self.btns_week.append(QRadioButton(i))
-            self.mon_box.addWidget(self.btns_week[j])
+        for i in range(9):
+            self.btns_mon_time.append(QPushButton('%d교시' % (i+1)))
+            self.mon_box.addWidget(self.btns_mon_time[i])
+            self.btns_mon_time[i].setCheckable(True)
 
     def tuesday(self):
-        pass
+        for i in range(9):
+            self.btns_tue_time.append(QPushButton('%d교시' % (i + 1)))
+            self.tue_box.addWidget(self.btns_tue_time[i])
+            self.btns_tue_time[i].setCheckable(True)
 
-    def wedenesday(self):
-        pass
+    def wednesday(self):
+        for i in range(9):
+            self.btns_wed_time.append(QPushButton('%d교시' % (i + 1)))
+            self.wed_box.addWidget(self.btns_wed_time[i])
+            self.btns_wed_time[i].setCheckable(True)
 
     def thursday(self):
-        pass
+        for i in range(9):
+            self.btns_thu_time.append(QPushButton('%d교시' % (i + 1)))
+            self.thu_box.addWidget(self.btns_thu_time[i])
+            self.btns_thu_time[i].setCheckable(True)
 
     def friday(self):
-        pass
+        for i in range(9):
+            self.btns_fri_time.append(QPushButton('%d교시' % (i + 1)))
+            self.fri_box.addWidget(self.btns_fri_time[i])
+            self.btns_fri_time[i].setCheckable(True)
 
+    def week_changed(self):
+        for j in range(5):
+            if self.btns_week[j].isChecked():
+                week_value = j
+                break
+        self.stack.setCurrentIndex(week_value)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = MyApp()
+    ex = Disk()
     sys.exit(app.exec_())
