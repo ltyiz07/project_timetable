@@ -29,6 +29,7 @@ class Data(QWidget):
         self.btns_wed_time = []
         self.btns_thu_time = []
         self.btns_fri_time = []
+        self.input_time_data = []
 
 
 class MyApp(Data):
@@ -208,7 +209,7 @@ class Disk(MyApp):
             self.btns_thu_time[t].setChecked(False)
             self.btns_fri_time[t].setChecked(False)
 
-        print(self.classes_input[i].text(), "   ", name_value, "    ", week_value, "    ")
+        print("name_value: ", name_value, "week_value: ", week_value)
 
     def monday(self):
         for i in range(9):

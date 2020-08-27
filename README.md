@@ -9,7 +9,7 @@
 ## 오류에 대해 우회... try, exept 관련해서 질문, 확인해보기.
 ### 수업 교시에대해 각각의 버튼에 대한 인풋 받는법 그리고 그 인풋을 데이터 처리 하는법 생각해보기.
 
- 
+  PySide2.QtWidgets.QButtonGroup.addButton(arg__1[, id=-1])¶
 gui input
  
 My first project solo.
