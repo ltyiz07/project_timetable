@@ -80,9 +80,6 @@ class MyApp(QWidget):
             print(self.classes_input[i].text())
         for i in range(10):
             self.btns_name[i].setText(self.classes_input[i].text())
-        for n in self.btns_name:
-            n.setCheckable(True)
-            n.toggle()
         self.tabs.setCurrentIndex(1)
 
     def Tab1(self):
@@ -103,14 +100,12 @@ class MyApp(QWidget):
     def Tab2(self):
         # setting for tab2
         layout_2 = QGridLayout()
-        self.tab2.setLayout(layout_2)
         # 1. class 이름 목록
         group_1 = QGroupBox("class")
         group_11 = QVBoxLayout()
         for i in range(10):
             self.btns_name.append(QRadioButton())
             group_11.addWidget(self.btns_name[i])    # lineEdit 과 connect 하기
-            self.btns_name[i].clicked.connect(self.RadioChanged)
         group_1.setLayout(group_11)
         # class 이름 목록 설정 완료
 
@@ -166,11 +161,6 @@ class MyApp(QWidget):
                 break
 
         print(name_value, "    ", week_value, "    ")
-
-    def RadioChanged(self):
-        pass
-        # for i in range(9):
-        #     self.btns_time[i].setChecked(False)
 
     def monday(self):
         for j, i in enumerate(self.week):
