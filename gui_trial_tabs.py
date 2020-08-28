@@ -24,12 +24,7 @@ from PyQt5.QtCore import Qt
 class Data(QWidget):
     def __init__(self):
         super().__init__()
-        self.btns_mon_time = []         # QPushButton for time on second window
-        self.btns_tue_time = []
-        self.btns_wed_time = []
-        self.btns_thu_time = []
-        self.btns_fri_time = []
-        self.input_time_data = []
+        self.unify_time = []
 
 
 class MyApp(Data):
@@ -66,6 +61,12 @@ class MyApp(Data):
         # tab2 레이아웃 설정
         self.Tab2()
         # tab2 레이아웃 설정 반영
+        #
+
+        #
+        ## tab3 레이아웃 설정
+        self.Tab3()
+        ## tab3 레이아웃 설정 반영
         #
 
         self.tabs.addTab(self.tab1, "수업 이름 설정")
@@ -139,18 +140,47 @@ class MyApp(Data):
 
         self.tab2.setLayout(layout_2)
 
+    def Tab3(self):
+        layout_3 = QGridLayout()
+        group_1 = QGroupBox("Table")
+        group_11 = QVBoxLayout()
+        group_1.setLayout(group_11)
+        layout_3.addWidget(group_1, 0, 0, 1, 3)
+
+        show = QPushButton("show")
+        before = QPushButton("<-before")
+        after = QPushButton("after->")
+
+        show.clicked.connect(self.show_clicked)
+        before.clicked.connect(self.before_clicked)
+        after.clicked.connect(self.after_clicked)
+
+        layout_3.addWidget(show, 1, 0)
+        layout_3.addWidget(before, 1, 1)
+        layout_3.addWidget(after, 1, 2)
+        self.tab3.setLayout(layout_3)
+        # for i in range(10):
+        #     layout_1.addWidget(self.classes_input[i], i, 1)
+        # btn_next = QPushButton("&next")
+        # layout_1.addWidget(btn_next, 11, 2)
+        # btn_next.clicked.connect(self.next1_clicked)
+        # self.tab1.setLayout(layout_1)
+
     def week_clicked(self):
-        for t in range(9):
-            self.btns_mon_time[t].setChecked(False)
-            self.btns_tue_time[t].setChecked(False)
-            self.btns_wed_time[t].setChecked(False)
-            self.btns_thu_time[t].setChecked(False)
-            self.btns_fri_time[t].setChecked(False)
+        for t in range(50):
+            self.unify_time[t].setChecked(False)
+
+    def before_clicked(self):
+        pass
+
+    def after_clicked(self):
+        pass
 
 
 class Disk(MyApp):
     def __init__(self):
         super().__init__()
+        self.input_time_data = []
 
     def set_stack(self):
         # 월요일
@@ -187,8 +217,8 @@ class Disk(MyApp):
         self.stack.addWidget(self.fri)
         self.stack.setMaximumSize(150, 450)
 
-
     def set_clicked(self):
+        temp_time_data = []
         for i in range(10):
             if self.btns_name[i].isChecked():
                 name_value = i
@@ -197,49 +227,48 @@ class Disk(MyApp):
             if self.btns_week[j].isChecked():
                 week_value = j
                 break
-        print(self.btns_mon_time[0].isChecked())
-        for i in range(9):
-            if self.btns_mon_time[i] == True:
-                self.input_time_data
+        for u in range(50):
+            if self.unify_time[u].isChecked():
+                temp_time_data.append(u)
+        self.input_time_data.append(name_value)
+        self.input_time_data.append(temp_time_data)
 
-        for t in range(9):
-            self.btns_mon_time[t].setChecked(False)
-            self.btns_tue_time[t].setChecked(False)
-            self.btns_wed_time[t].setChecked(False)
-            self.btns_thu_time[t].setChecked(False)
-            self.btns_fri_time[t].setChecked(False)
-
+        for t in range(50):
+            self.unify_time[t].setChecked(False)
         print("name_value: ", name_value, "week_value: ", week_value)
 
+    def show_clicked(self):
+        print(self.input_time_data)
+
     def monday(self):
-        for i in range(9):
-            self.btns_mon_time.append(QPushButton('%d교시' % (i+1)))
-            self.mon_box.addWidget(self.btns_mon_time[i])
-            self.btns_mon_time[i].setCheckable(True)
+        for i in range(0, 10):
+            self.unify_time.append(QPushButton('%d교시' % (i+1)))
+            self.mon_box.addWidget(self.unify_time[i])
+            self.unify_time[i].setCheckable(True)
 
     def tuesday(self):
-        for i in range(9):
-            self.btns_tue_time.append(QPushButton('%d교시' % (i + 1)))
-            self.tue_box.addWidget(self.btns_tue_time[i])
-            self.btns_tue_time[i].setCheckable(True)
+        for i in range(10, 20):
+            self.unify_time.append(QPushButton('%d교시' % (i - 9)))
+            self.tue_box.addWidget(self.unify_time[i])
+            self.unify_time[i].setCheckable(True)
 
     def wednesday(self):
-        for i in range(9):
-            self.btns_wed_time.append(QPushButton('%d교시' % (i + 1)))
-            self.wed_box.addWidget(self.btns_wed_time[i])
-            self.btns_wed_time[i].setCheckable(True)
+        for i in range(20, 30):
+            self.unify_time.append(QPushButton('%d교시' % (i - 19)))
+            self.wed_box.addWidget(self.unify_time[i])
+            self.unify_time[i].setCheckable(True)
 
     def thursday(self):
-        for i in range(9):
-            self.btns_thu_time.append(QPushButton('%d교시' % (i + 1)))
-            self.thu_box.addWidget(self.btns_thu_time[i])
-            self.btns_thu_time[i].setCheckable(True)
+        for i in range(30, 40):
+            self.unify_time.append(QPushButton('%d교시' % (i - 29)))
+            self.thu_box.addWidget(self.unify_time[i])
+            self.unify_time[i].setCheckable(True)
 
     def friday(self):
-        for i in range(9):
-            self.btns_fri_time.append(QPushButton('%d교시' % (i + 1)))
-            self.fri_box.addWidget(self.btns_fri_time[i])
-            self.btns_fri_time[i].setCheckable(True)
+        for i in range(40, 50):
+            self.unify_time.append(QPushButton('%d교시' % (i - 39)))
+            self.fri_box.addWidget(self.unify_time[i])
+            self.unify_time[i].setCheckable(True)
 
     def week_changed(self):
         for j in range(5):
@@ -247,6 +276,7 @@ class Disk(MyApp):
                 week_value = j
                 break
         self.stack.setCurrentIndex(week_value)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
