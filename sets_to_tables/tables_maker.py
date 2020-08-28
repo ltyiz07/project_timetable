@@ -8,6 +8,7 @@ class Sort:
     """
     def __init__(self):
         # lines 리스트 내부의 리스트 갯수: 첫째줄 + N교시 = 10
+        # 10 교시 위해 한줄 더 추가하기z
         self.lines = [[], [], [], [], [], [], [], [], [], []]
         self.show = ""
         self.time_sorted_list = []

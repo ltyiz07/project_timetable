@@ -14,6 +14,11 @@ class SetMaker(Sort):
         self.class_set = []
         self.time_sorted_list = []
 
+    def matcher(self, input_list):
+        for i in input_list:
+            if i:
+                self.matcher_1(i)
+
     def matcher_1(self, input):
         if not self.class_set:      # input = first 일때 만 동작
             for l, set_1 in enumerate(input):
@@ -41,6 +46,10 @@ class SetMaker(Sort):
 
 if __name__ == '__main__':
     from sets_to_tables.tables_maker import Sort
+
+    sets_data = []
+    for i in range(10):
+        sets_data.append([])
 
     first = [{"mon_1", "mon_2", "mon_3"}, {"mon_4", "mon_5", "mon_6"}, {"wed_1", "wed_2", "wed_3"}]
     second = [{"mon_5", "mon_6", "mon_7"}, {"thu_2", "thu_3", "thu_4"}, {"fri_1", "fri_2", "fri_3"}]
