@@ -23,11 +23,8 @@ class_input[9] = []
 trial = SetMaker()
 trial.matcher(class_input)
 
-for i in trial.class_set:
-    trial.time_sorted_list.append(trial.sort_with_time(i))
 
-for i in trial.time_sorted_list:
-    trial.table(i)
+
 
 print('=' * 100)
 

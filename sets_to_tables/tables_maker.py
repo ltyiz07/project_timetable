@@ -8,8 +8,8 @@ class Sort:
     """
     def __init__(self):
         # lines 리스트 내부의 리스트 갯수: 첫째줄 + N교시 = 10
-        # 10 교시 위해 한줄 더 추가하기z
-        self.lines = [[], [], [], [], [], [], [], [], [], []]
+        # 10 교시 위해 한줄 더 추가하기
+        self.lines = []
         self.show = ""
         self.time_sorted_list = []
         self.show_list = []
@@ -21,35 +21,39 @@ class Sort:
         :return:
         """
         list_time = []
-        for j in range(11):
+        for j in range(10):
             list_time.append([])
+
         for i in set_1:
-            if i[4] == '1':
+            if i % 10 == 0:
                 list_time[0].append(i)
         for i in set_1:
-            if i[4] == '2':
+            if i % 10 == 1:
                 list_time[1].append(i)
         for i in set_1:
-            if i[4] == '3':
+            if i % 10 == 2:
                 list_time[2].append(i)
         for i in set_1:
-            if i[4] == '4':
+            if i % 10 == 3:
                 list_time[3].append(i)
         for i in set_1:
-            if i[4] == '5':
+            if i % 10 == 4:
                 list_time[4].append(i)
         for i in set_1:
-            if i[4] == '6':
+            if i % 10 == 5:
                 list_time[5].append(i)
         for i in set_1:
-            if i[4] == '7':
+            if i % 10 == 6:
                 list_time[6].append(i)
         for i in set_1:
-            if i[4] == '8':
+            if i % 10 == 7:
                 list_time[7].append(i)
         for i in set_1:
-            if i[4] == '9':
+            if i % 10 == 8:
                 list_time[8].append(i)
+        for i in set_1:
+            if i % 10 == 9:
+                list_time[9].append(i)
         return list_time
 
     def table(self, set_3):
@@ -59,25 +63,25 @@ class Sort:
                 :return: ...
                 """
         dash = "{0:^11}".format('-')
-        first_line = "   {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
-        for j in range(9):
+        first_line = "     {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
+        self.lines.append(str(first_line))
+        for j in range(10):
             a, b, c, d, e = dash, dash, dash, dash, dash
-            for i in range(len(set_3[j])):
-                if set_3[j][i][0:3] == 'mon':
-                    a = "{0:^11}".format(set_3[j][i])
-                if set_3[j][i][0:3] == 'tue':
-                    b = "{0:^11}".format(set_3[j][i])
-                if set_3[j][i][0:3] == 'wed':
-                    c = "{0:^11}".format(set_3[j][i])
-                if set_3[j][i][0:3] == 'thu':
-                    d = "{0:^11}".format(set_3[j][i])
-                if set_3[j][i][0:3] == 'fri':
-                    e = "{0:^11}".format(set_3[j][i])
-            class_line = "({0}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
+            for i in set_3[j]:
+                if i // 10 == 0:
+                    a = "{0:^11}".format('mon_%d' % j)
+                if i // 10 == 1:
+                    b = "{0:^11}".format('tue_%d' % j)
+                if i // 10 == 2:
+                    c = "{0:^11}".format('wed_%d' % j)
+                if i // 10 == 3:
+                    d = "{0:^11}".format('thu_%d' % j)
+                if i // 10 == 4:
+                    e = "{0:^11}".format('fri_%d' % j)
+            class_line = "({0:^3}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
             print(class_line)
-            self.lines[0] = str(first_line)
-            self.lines[j + 1] = str(class_line)
-        for i in range(10):
+            self.lines.append(str(class_line))
+        for i in range(11):
             self.show += str(self.lines[i]) + '\n'
 
         show = ""
