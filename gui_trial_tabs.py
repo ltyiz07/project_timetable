@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QSpacerItem
 from PyQt5.QtWidgets import QLineEdit
@@ -197,7 +198,9 @@ class MyApp(Data):
             table = QGroupBox("table%d" % (option + 1))
             table_box = QVBoxLayout()
             for i in self.table_making.lines[option * 11 : (option * 11 + 11)]:
-                table_box.addWidget(QLabel(i, self))
+                label = QLabel(i, self)
+                label.setFont(QFont('consolas'))
+                table_box.addWidget(label)
             table.setLayout(table_box)
             self.stack2.addWidget(table)
         self.view.setModel(self.model)
