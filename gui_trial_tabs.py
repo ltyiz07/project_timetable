@@ -30,8 +30,7 @@ class Data(QWidget):
         self.base_list = []         # data_list 내의 시간들의 셋들에대한 인덱스정보
         # 각각의 data_list 의 셋들을 base_list 인덱스에 따라 수업별로 정리한정보
         self.processed_sets = [[], [], [], [], [], [], [], [], [], []]
-
-
+        self.table_making = SetMaker()
 
 
 class MyApp(Data):
@@ -44,6 +43,8 @@ class MyApp(Data):
         self.tabs = QTabWidget()
 
         self.stack = QStackedWidget(self)
+
+        self.stack2 = QStackedWidget(self)
 
         self.week = ("mon", "tue", "wed", "thu", "fri")
 
@@ -78,7 +79,7 @@ class MyApp(Data):
 
         self.tabs.addTab(self.tab1, "수업 이름 설정")
         self.tabs.addTab(self.tab2, "수업 시간들 추가")
-        self.tabs.addTab(self.tab3, "결과...")            # tab3 추가
+        self.tabs.addTab(self.tab3, "시간표")            # tab3 추가
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.tabs)
@@ -147,6 +148,10 @@ class MyApp(Data):
 
         self.tab2.setLayout(layout_2)
 
+    def week_clicked(self):
+        for t in range(50):
+            self.unify_time[t].setChecked(False)
+
     def Tab3(self):
         layout_3 = QGridLayout()
         group_1 = QGroupBox("Table")
@@ -154,34 +159,25 @@ class MyApp(Data):
         group_1.setLayout(group_11)
         layout_3.addWidget(group_1, 0, 0, 1, 3)
 
-        show = QPushButton("show")
+        self.btn_show = QPushButton("show")
         before = QPushButton("<-before")
         after = QPushButton("after->")
 
-        show.clicked.connect(self.show_clicked)
+        self.btn_show.clicked.connect(self.btn_show_clicked)
         before.clicked.connect(self.before_clicked)
         after.clicked.connect(self.after_clicked)
 
-        layout_3.addWidget(show, 1, 0)
+        layout_3.addWidget(self.btn_show, 1, 0)
         layout_3.addWidget(before, 1, 1)
         layout_3.addWidget(after, 1, 2)
         self.tab3.setLayout(layout_3)
-        # for i in range(10):
-        #     layout_1.addWidget(self.classes_input[i], i, 1)
-        # btn_next = QPushButton("&next")
-        # layout_1.addWidget(btn_next, 11, 2)
-        # btn_next.clicked.connect(self.next1_clicked)
-        # self.tab1.setLayout(layout_1)
-
-    def week_clicked(self):
-        for t in range(50):
-            self.unify_time[t].setChecked(False)
 
     def before_clicked(self):
         pass
 
     def after_clicked(self):
         pass
+
 
 
 class Disk(MyApp):
@@ -216,6 +212,10 @@ class Disk(MyApp):
         self.friday()
         self.fri.setLayout(self.fri_box)
 
+        self.set_color_blue()
+
+        for c in self.unify_time:
+            c.clicked.connect(self.set_color_green)
 
         self.stack.addWidget(self.mon)
         self.stack.addWidget(self.tue)
@@ -224,7 +224,22 @@ class Disk(MyApp):
         self.stack.addWidget(self.fri)
         self.stack.setMaximumSize(150, 450)
 
+    def set_color_blue(self):
+        self.mon.setStyleSheet("background-color: #4d79ff;")
+        self.tue.setStyleSheet("background-color: #4d79ff;")
+        self.wed.setStyleSheet("background-color: #4d79ff;")
+        self.thu.setStyleSheet("background-color: #4d79ff;")
+        self.fri.setStyleSheet("background-color: #4d79ff;")
+
+    def set_color_green(self):
+        self.mon.setStyleSheet("background-color: #70db70;")
+        self.tue.setStyleSheet("background-color: #70db70;")
+        self.wed.setStyleSheet("background-color: #70db70;")
+        self.thu.setStyleSheet("background-color: #70db70;")
+        self.fri.setStyleSheet("background-color: #70db70;")
+
     def set_clicked(self):
+        self.set_color_blue()
         temp_time_data = []
         for i in range(10):
             if self.btns_name[i].isChecked():
@@ -244,12 +259,14 @@ class Disk(MyApp):
             self.unify_time[t].setChecked(False)
         print("name_value: ", name_value, "week_value: ", week_value)
 
-    def show_clicked(self):
+    def btn_show_clicked(self):
         """
         data processing
 
         :return:
         """
+
+        self.btn_show.setEnabled(False)
         print(self.input_time_data)
         for n, d in enumerate(self.input_time_data):
             if not(n % 2):
@@ -266,6 +283,8 @@ class Disk(MyApp):
         for j, i in enumerate(self.base_list):
             self.processed_sets[i].append(self.data_list[j])
         print(self.processed_sets)
+        self.table_making.matcher(self.processed_sets)
+        # print(self.table_making.lines)
 
     def monday(self):
         for i in range(0, 10):
