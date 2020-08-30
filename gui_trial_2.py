@@ -1,65 +1,105 @@
-## Ex 3-4. 툴팁 나타내기.
-
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtGui import *
+
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QStackedWidget
+from PyQt5.QtWidgets import QTextEdit
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QGroupBox
+from PyQt5.QtWidgets import QListView
+from PyQt5.QtGui import QStandardItem
+from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtCore import QModelIndex
+
+from PyQt5.QtWidgets import QBoxLayout
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSlot
 
 
-class MyApp(QWidget):
+__author__ = "Deokyu Lim <hong18s@gmail.com>"
 
+
+class StWidgetForm(QGroupBox):
+    """
+    위젯 베이스 클래스
+    """
     def __init__(self):
-        super().__init__()
-        self.initUI()
+        QGroupBox.__init__(self)
+        self.box = QBoxLayout(QBoxLayout.TopToBottom)
+        self.setLayout(self.box)
 
 
-    def initUI(self):
-        self.button_group = QButtonGroup()
-        self.setWindowIcon(QIcon('lotus.png'))
-        self.setWindowTitle('Time Table Maker')
-        self.setGeometry(1200, 300, 500, 500)
-        self.setToolTip('This is a <b>QWidget</b> widget')
-        QToolTip.setFont(QFont('SansSerif', 10))
+class Widget_1(StWidgetForm):
+    """
+    버튼 그룹
+    """
+    def __init__(self):
+        super(Widget_1, self).__init__()
+        self.setTitle("Widget_1")
+        self.box.addWidget(QPushButton("Test_1"))
+        self.box.addWidget(QPushButton("Test_2"))
+        self.box.addWidget(QPushButton("Test_3"))
 
 
-        self.btn_3 = QPushButton()
-        self.button_group.addButton(self.btn_3, 1)
+class Widget_2(StWidgetForm):
+    def __init__(self):
+        super(Widget_2, self).__init__()
+        self.setTitle("Widget_2")
+        self.box.addWidget(QTextEdit())
 
 
-        self.btn = QPushButton('Next_2', self)
-        self.button_group.addButton(self.btn, 2)
-        # self.button_group.addButton(self.btn, 1)
-        self.btn.setToolTip('This is a <b>QPushButton</b> widget')
-        self.btn.move(400, 460)
-        self.btn.resize(self.btn.sizeHint())
-        self.btn.setCheckable(True)
-
-        self.btn_1 = QPushButton('Next_3', self)
-        self.button_group.addButton(self.btn_1, 3)
-        self.btn_1.setToolTip('This is a <b>QPushButton</b> widget')
-        self.btn_1.move(250, 460)
-        self.btn_1.resize(self.btn.sizeHint())
-        self.btn_1.setCheckable(True)
-        # self.btn.setChecked(True)
-
-        self.btn_2 = QPushButton("what?")
-
-        # self.QtWidgets.QButtonGroup.addButton(btn, [id=1])
-
-        btn_0 = QPushButton("toggle", self)
-        btn_0.move(300, 300)
-        btn_0.resize(btn_0.sizeHint())
-        btn_0.clicked.connect(self.review)
-        self.button_group.setExclusive(False)
-
-        self.show()
-
-    def review(self):
-        print(self.button_group.checkedButton())
+class Widget_3(StWidgetForm):
+    def __init__(self):
+        super(Widget_3, self).__init__()
+        self.setTitle("Widget_3")
+        self.box.addWidget(QLabel("Test Label"))
 
 
-if __name__ == '__main__':
+class Form(QWidget):
+    def __init__(self):
+        QWidget.__init__(self, flags=Qt.Widget)
+        self.stk_w = QStackedWidget(self)
+        self.init_widget()
+
+    def init_widget(self):
+        self.setWindowTitle("Hello World")
+        widget_laytout = QBoxLayout(QBoxLayout.LeftToRight)
+
+        group = QGroupBox()
+        box = QBoxLayout(QBoxLayout.TopToBottom)
+        group.setLayout(box)
+        group.setTitle("Buttons")
+        widget_laytout.addWidget(group)
+
+        fruits = ["Buttons in GroupBox", "TextBox in GroupBox", "Label in GroupBox", "TextEdit"]
+        view = QListView(self)
+        model = QStandardItemModel()
+        for f in fruits:
+            model.appendRow(QStandardItem(f))
+        view.setModel(model)
+        box.addWidget(view)
+
+        self.stk_w.addWidget(Widget_1())
+        self.stk_w.addWidget(Widget_2())
+        self.stk_w.addWidget(Widget_3())
+        self.stk_w.addWidget(QTextEdit())
+
+        widget_laytout.addWidget(self.stk_w)
+        self.setLayout(widget_laytout)
+
+        # 시그널 슬롯 연결
+        view.clicked.connect(self.slot_clicked_item)
+
+    @pyqtSlot(QModelIndex)
+    def slot_clicked_item(self, QModelIndex):
+        self.stk_w.setCurrentIndex(QModelIndex.row())
+
+
+
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ex = MyApp()
-    sys.exit(app.exec_())
+    form = Form()
+    form.show()
+    exit(app.exec_())

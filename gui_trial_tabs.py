@@ -5,6 +5,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QTabWidget, QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QStandardItem
+from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QSpacerItem
 from PyQt5.QtWidgets import QLineEdit
@@ -12,6 +14,7 @@ from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QGroupBox
 from PyQt5.QtWidgets import QStackedWidget
+from PyQt5.QtWidgets import QListView
 
 from PyQt5.QtWidgets import QBoxLayout
 from PyQt5.QtWidgets import QHBoxLayout
@@ -21,6 +24,7 @@ from PyQt5.QtWidgets import QFormLayout
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
 from sets_to_tables.sets_maker import SetMaker
+
 
 class Data(QWidget):
     def __init__(self):
@@ -44,6 +48,9 @@ class MyApp(Data):
 
         self.stack = QStackedWidget(self)
 
+        # tab3 setting
+        self.tab3_group_11 = QVBoxLayout()
+        self.tab3_group_22 = QVBoxLayout()
         self.stack2 = QStackedWidget(self)
 
         self.week = ("mon", "tue", "wed", "thu", "fri")
@@ -64,7 +71,6 @@ class MyApp(Data):
         #
         # stack 에 요일들 추가
         self.set_stack()
-
         #
         # tab2 레이아웃 설정
         self.Tab2()
@@ -123,7 +129,7 @@ class MyApp(Data):
         for i in range(10):
             self.btns_name.append(QRadioButton())
             group_11.addWidget(self.btns_name[i])    # lineEdit 과 connect 하기
-            self.btns_name[i].clicked.connect(self.week_clicked)
+            self.btns_name[i].clicked.connect(self.class_name_clicked)
         group_1.setLayout(group_11)
         # class 이름 목록 설정 완료
 
@@ -148,36 +154,72 @@ class MyApp(Data):
 
         self.tab2.setLayout(layout_2)
 
-    def week_clicked(self):
+    def class_name_clicked(self):
         for t in range(50):
             self.unify_time[t].setChecked(False)
+        self.set_color_blue()
 
     def Tab3(self):
+        # tab3 outfit
         layout_3 = QGridLayout()
-        group_1 = QGroupBox("Table")
-        group_11 = QVBoxLayout()
-        group_1.setLayout(group_11)
-        layout_3.addWidget(group_1, 0, 0, 1, 3)
+
+        group_1 = QGroupBox("Options")
+        group_1.setLayout(self.tab3_group_11)
+        layout_3.addWidget(group_1, 0, 0, 1, 1)
+        group_1.setMaximumSize(400, 2000)
+
+        group_2 = QGroupBox("Table")
+        group_2.setLayout(self.tab3_group_22)
+        layout_3.addWidget(self.stack2, 0, 1, 1, 3)
 
         self.btn_show = QPushButton("show")
         before = QPushButton("<-before")
         after = QPushButton("after->")
+        info = QPushButton("info")
 
         self.btn_show.clicked.connect(self.btn_show_clicked)
         before.clicked.connect(self.before_clicked)
         after.clicked.connect(self.after_clicked)
+        info.clicked.connect(self.info_clicked)
 
         layout_3.addWidget(self.btn_show, 1, 0)
         layout_3.addWidget(before, 1, 1)
-        layout_3.addWidget(after, 1, 2)
+        layout_3.addWidget(after, 1, 3)
+        layout_3.addWidget(info, 1, 2)
         self.tab3.setLayout(layout_3)
+
+    def tab3_show(self):
+        self.view = QListView(self)
+        self.model = QStandardItemModel()
+        option_length = len(self.table_making.class_set)
+        for option in range(option_length):
+            self.model.appendRow(QStandardItem("option%d" % (option + 1)))
+            table = QGroupBox("table%d" % (option + 1))
+            table_box = QVBoxLayout()
+            for i in self.table_making.lines[option * 11 : (option * 11 + 11)]:
+                table_box.addWidget(QLabel(i, self))
+            table.setLayout(table_box)
+            self.stack2.addWidget(table)
+        self.view.setModel(self.model)
+        self.tab3_group_11.addWidget(self.view)
+        self.view.clicked.connect(self.slot_clicked_item)
+
+    def slot_clicked_item(self, index):
+        self.stack2.setCurrentIndex(index.row())
 
     def before_clicked(self):
         pass
+        # before = self.stack2.currentIndex() - 1
+        # self.stack2.setCurrentIndex(before)
 
     def after_clicked(self):
         pass
 
+    def info_clicked(self):
+        pass
+
+    # def stack2_set(self):
+    #     pass
 
 
 class Disk(MyApp):
@@ -285,6 +327,7 @@ class Disk(MyApp):
         print(self.processed_sets)
         self.table_making.matcher(self.processed_sets)
         # print(self.table_making.lines)
+        self.tab3_show()
 
     def monday(self):
         for i in range(0, 10):
@@ -317,6 +360,10 @@ class Disk(MyApp):
             self.unify_time[i].setCheckable(True)
 
     def week_changed(self):
+        """
+        날짜 클릭되면 스택 반환.
+        :return:
+        """
         for j in range(5):
             if self.btns_week[j].isChecked():
                 week_value = j
