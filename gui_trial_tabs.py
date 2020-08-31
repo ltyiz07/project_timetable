@@ -16,6 +16,7 @@ from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QGroupBox
 from PyQt5.QtWidgets import QStackedWidget
 from PyQt5.QtWidgets import QListView
+from PyQt5.QtWidgets import QMessageBox
 
 from PyQt5.QtWidgets import QBoxLayout
 from PyQt5.QtWidgets import QHBoxLayout
@@ -99,7 +100,6 @@ class MyApp(Data):
         self.show()
 
     def next1_clicked(self):
-        print("next1 clicked")
         for i in range(10):
             print(self.classes_input[i].text())
         for i in range(10):
@@ -174,18 +174,18 @@ class MyApp(Data):
         layout_3.addWidget(self.stack2, 0, 1, 1, 3)
 
         self.btn_show = QPushButton("show")
-        before = QPushButton("<-before")
-        after = QPushButton("after->")
+        # before = QPushButton("<-before")
+        # after = QPushButton("after->")
         info = QPushButton("info")
 
         self.btn_show.clicked.connect(self.btn_show_clicked)
-        before.clicked.connect(self.before_clicked)
-        after.clicked.connect(self.after_clicked)
+        # before.clicked.connect(self.before_clicked)
+        # after.clicked.connect(self.after_clicked)
         info.clicked.connect(self.info_clicked)
 
         layout_3.addWidget(self.btn_show, 1, 0)
-        layout_3.addWidget(before, 1, 1)
-        layout_3.addWidget(after, 1, 3)
+        # layout_3.addWidget(before, 1, 1)
+        # layout_3.addWidget(after, 1, 3)
         layout_3.addWidget(info, 1, 2)
         self.tab3.setLayout(layout_3)
 
@@ -210,20 +210,20 @@ class MyApp(Data):
     def slot_clicked_item(self, index):
         self.stack2.setCurrentIndex(index.row())
 
-    def before_clicked(self):
-        pass
-        # before = self.stack2.currentIndex() - 1
-        # self.stack2.setCurrentIndex(before)
-
-    def after_clicked(self):
-        pass
-
     def info_clicked(self):
-        pass
-
-    # def stack2_set(self):
-    #     pass
-
+        view_index = self.view.currentIndex()
+        index = view_index.row()
+        title = "option%d" % (index + 1)
+        message = ""
+        for i, j in enumerate(self.table_making.class_seq[index]):
+            temp_dialog_message = ""
+            for k in self.processed_sets[i][j]:
+                temp_num_week = k // 10
+                temp_num_time = k % 10
+                temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
+            message += "{0}    : {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
+            # message += f"{self.classes_input[i].text()}: {temp_dialog_message}\n"
+        QMessageBox.information(self, title, message)
 
 class Disk(MyApp):
     def __init__(self):
@@ -329,7 +329,6 @@ class Disk(MyApp):
             self.processed_sets[i].append(self.data_list[j])
         print(self.processed_sets)
         self.table_making.matcher(self.processed_sets)
-        # print(self.table_making.lines)
         self.tab3_show()
 
     def monday(self):
