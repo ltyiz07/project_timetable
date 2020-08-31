@@ -1,39 +1,8 @@
-        self.button_1 = QPushButton('buton', self)
-        self.button_1.setCheckable(True)
-        # self.button_1.toggled()
-        self.button_1.clicked.connect(self.checked_1)
-    def checked_1(self):
-        print(self.button_1.isChecked())
+# TimeTable Maker
+## 과목명과 과목별 시간표들을 입력하면 모든 조합가능 경우를 보여줌
 
-# Time Table Maker
-## 오류에 대해 우회... try, exept 관련해서 질문, 확인해보기.
-### 수업 교시에대해 각각의 버튼에 대한 인풋 받는법 그리고 그 인풋을 데이터 처리 하는법 생각해보기.
-
-  PySide2.QtWidgets.QButtonGroup.addButton(arg__1[, id=-1])¶
-gui input
- 
-My first project solo.
-
-듣고싶은 수업별로 시간표 셋들을 추가하면 조합가능한 모든 수업시간표들을 보여주는 프로그램
-
-
-
-connect 로 QLineEdit 연결시키기
-
-리스트 만든후 인풋 단어들 리스트에 추가?
-
-알고리즘 import 한후 gui 에서 바로 사용?
-
-### trial_1 두개의 클래스 이용해서 윈도우 새로 생성
-gui_trial_grid ==>> 첫번째 윈도우 클래스에서 수업 이름 받고 이를 매개값으로
-두번째 클래스에 전달.
-
-### trial_2 TAB을 사용하여 하나의 클래스, 윈도우에 구성
-두번째 탭 pushbottone들에 토글 반영하기, set button 추가하기
-set button 누를 때마다 값 반영, pushbotton 토글 초기화.
-
-두번째 탭 수업 이름들 라디오로 바꾸고 첫번째 탭에서 입력한 만큼만
-만들어 보여주기...
-
-### trial_3 QStackedWidget 을 사용하여 구성...<= 이방법이 가장 깔끔할듯...
-
+1. 수업 이름들 입력 후 'next' 클릭
+2. 각 수업별로 듣고싶은 시간표 입력후 'SET' 클릭 (클릭할때마다 추가됨)
+3. 시간표 탭으로 이동후 'show' 클릭
+4. 'options' 에서 시간표들을 비교, 더블클릭으로 option 이름을 바꿀수 있다.
+5. 'info' 클릭시 해당 시간표에대한 정보 보여줌.
