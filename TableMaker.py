@@ -316,7 +316,6 @@ class Disk(MyApp):
 
         for t in range(50):
             self.unify_time[t].setChecked(False)
-        print("name_value: ", name_value, "week_value: ", week_value)
 
     def btn_show_clicked(self):
         """
@@ -326,22 +325,17 @@ class Disk(MyApp):
         """
 
         self.btn_show.setEnabled(False)
-        print(self.input_time_data)
         for n, d in enumerate(self.input_time_data):
             if not(n % 2):
                 self.data_list.append([])
                 self.base_list.append(d)
                 self.data_list[int(n / 2)] = self.input_time_data[n + 1]
-        print(self.base_list)
-        print(self.data_list)
 
         for e, i in enumerate(self.data_list):
             self.data_list[e] = set(i)
-        print(self.data_list)
 
         for j, i in enumerate(self.base_list):
             self.processed_sets[i].append(self.data_list[j])
-        print(self.processed_sets)
         self.table_making.matcher(self.processed_sets)
         self.tab3_show()
 
