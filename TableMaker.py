@@ -95,8 +95,6 @@ class MyApp(Data):
 
     def next1_clicked(self):
         for i in range(10):
-            print(self.classes_input[i].text())
-        for i in range(10):
             self.btns_name[i].setText(self.classes_input[i].text())
         self.tabs.setCurrentIndex(1)
 
@@ -113,6 +111,7 @@ class MyApp(Data):
         btn_next = QPushButton("&next")
         layout_1.addWidget(btn_next, 11, 2)
         btn_next.clicked.connect(self.next1_clicked)
+        self.tabs.tabBarClicked.connect(self.next1_clicked)
         self.tab1.setLayout(layout_1)
 
     def Tab2(self):
@@ -195,8 +194,7 @@ class MyApp(Data):
         indexed_table_list = self.table_making.lines[index * 11:index * 11 + 11]
         for line in indexed_table_list:
             text_write.append(str(line) + '\n')
-            print(line)
-        with open(f".\\option{index + 1}.txt", 'w') as f:
+        with open(f"..\\option{index + 1}.txt", 'w') as f:
             for one_line in text_write:
                 f.write(one_line)
             f.write('\n')

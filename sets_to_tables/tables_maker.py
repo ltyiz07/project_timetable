@@ -62,24 +62,23 @@ class Sort:
                 :param set_3: 하나의 시간표 (2차원 리스트)
                 :return: ...
                 """
-        dash = "{0:^11}".format('-')
-        first_line = "     {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
+        dash = "{0:^9}".format('-')
+        first_line = "     {0:^9}{1:^9}{2:^9}{3:^9}{4:^9}".format('mon', 'tue', 'wed', 'thu', 'fri')
         self.lines.append(str(first_line))
         for j in range(10):
             a, b, c, d, e = dash, dash, dash, dash, dash
             for i in set_3[j]:
                 if i // 10 == 0:
-                    a = "{0:^11}".format('mon_%d' % j)
+                    a = "{0:^9}".format('mon_%d' % (j + 1))
                 if i // 10 == 1:
-                    b = "{0:^11}".format('tue_%d' % j)
+                    b = "{0:^9}".format('tue_%d' % (j + 1))
                 if i // 10 == 2:
-                    c = "{0:^11}".format('wed_%d' % j)
+                    c = "{0:^9}".format('wed_%d' % (j + 1))
                 if i // 10 == 3:
-                    d = "{0:^11}".format('thu_%d' % j)
+                    d = "{0:^9}".format('thu_%d' % (j + 1))
                 if i // 10 == 4:
-                    e = "{0:^11}".format('fri_%d' % j)
-            class_line = "({0:^3}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
-            print(class_line)
+                    e = "{0:^9}".format('fri_%d' % (j + 1))
+            class_line = "({0:^3}){1:^9}{2:^9}{3:^9}{4:^9}{5:^9}".format(j + 1, a, b, c, d, e)
             self.lines.append(str(class_line))
         for i in range(11):
             self.show += str(self.lines[i]) + '\n'
@@ -88,7 +87,6 @@ class Sort:
         for i in range(10):
             show += str(self.lines[i]) + '\n'
         self.show_list.append(show)     #
-        # print(self.lines)       # indexing 가능
 
 
 if __name__ == '__main__':
