@@ -2,29 +2,23 @@
 시간표 자동생성 프로그램
 """
 import sys
-from PyQt5.QtWidgets import QApplication, QTabWidget, QVBoxLayout
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QSpacerItem
 from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QGroupBox
 from PyQt5.QtWidgets import QStackedWidget
 from PyQt5.QtWidgets import QListView
 from PyQt5.QtWidgets import QMessageBox
 
-from PyQt5.QtWidgets import QBoxLayout
-from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QGridLayout
-from PyQt5.QtWidgets import QFormLayout
 
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import Qt
 from sets_to_tables.sets_maker import SetMaker
 
 
@@ -174,20 +168,41 @@ class MyApp(Data):
         layout_3.addWidget(self.stack2, 0, 1, 1, 3)
 
         self.btn_show = QPushButton("show")
-        # before = QPushButton("<-before")
-        # after = QPushButton("after->")
+        save = QPushButton("SAVE")
         info = QPushButton("info")
 
         self.btn_show.clicked.connect(self.btn_show_clicked)
-        # before.clicked.connect(self.before_clicked)
-        # after.clicked.connect(self.after_clicked)
+        save.clicked.connect(self.save_clicked)
         info.clicked.connect(self.info_clicked)
 
         layout_3.addWidget(self.btn_show, 1, 0)
-        # layout_3.addWidget(before, 1, 1)
-        # layout_3.addWidget(after, 1, 3)
+        layout_3.addWidget(save, 1, 3)
         layout_3.addWidget(info, 1, 2)
         self.tab3.setLayout(layout_3)
+
+    def save_clicked(self):
+        view_index = self.view.currentIndex()
+        index = view_index.row()
+        text_write = []
+        class_info = ""
+        for i, j in enumerate(self.table_making.class_seq[index]):
+            temp_dialog_message = ""
+            for k in self.processed_sets[i][j]:
+                temp_num_week = k // 10
+                temp_num_time = k % 10
+                temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
+            class_info += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
+        indexed_table_list = self.table_making.lines[index * 11:index * 11 + 11]
+        for line in indexed_table_list:
+            text_write.append(str(line) + '\n')
+            print(line)
+        with open(f".\\option{index + 1}.txt", 'w') as f:
+            for one_line in text_write:
+                f.write(one_line)
+            f.write('\n')
+            f.write(class_info)
+            f.write('\n')
+            f.write("(set font to 'consolas' or any monospaced font)")
 
     def tab3_show(self):
         self.view = QListView(self)
@@ -197,7 +212,7 @@ class MyApp(Data):
             self.model.appendRow(QStandardItem("option%d" % (option + 1)))
             table = QGroupBox("table%d" % (option + 1))
             table_box = QVBoxLayout()
-            for i in self.table_making.lines[option * 11 : (option * 11 + 11)]:
+            for i in self.table_making.lines[option * 11:(option * 11 + 11)]:
                 label = QLabel(i, self)
                 label.setFont(QFont('consolas'))
                 table_box.addWidget(label)
@@ -221,8 +236,7 @@ class MyApp(Data):
                 temp_num_week = k // 10
                 temp_num_time = k % 10
                 temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
-            message += "{0}    : {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
-            # message += f"{self.classes_input[i].text()}: {temp_dialog_message}\n"
+            message += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
         QMessageBox.information(self, title, message)
 
 class Disk(MyApp):
