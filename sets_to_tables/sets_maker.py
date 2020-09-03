@@ -10,17 +10,33 @@ from sets_to_tables.tables_maker import Sort
 class SetMaker(Sort):
     def __init__(self):
         super().__init__()
-        self.class_seq = []
-        self.class_set = []
-        self.time_sorted_list = []
 
-    def matcher(self, input_list):
+    def matcher(self, input_list, name_list):
+        """
+
+        :param input_list: 2차원 리스트 속의 1차원 셋 총 3차원
+        :param name_list: 버튼 리스트
+        :return:
+        """
+        # 수업 이름들 변환
+        for n in name_list:
+            if n.text():
+                self.name_list.append(n.text())
+        for n in name_list:
+            self.name_list += (n,)
         for i in input_list:
             if i:
                 self.matcher_1(i)
-        for j, i in enumerate(self.class_set):
-            self.time_sorted_list.append(self.sort_with_time(i))  # 리스트에 각시간별로 분류해 정리
-        for j, i in enumerate(self.time_sorted_list):  # 시간별로 정리된 시간표를 출력
+
+        for j, seq in enumerate(self.class_seq):
+            self.name_time.append([])
+            for num, v in enumerate(seq):
+                for ele in input_list[num][v]:
+                    self.name_time[j].append(f"{num}_{ele}")
+
+        for one_table_set in self.name_time:
+            self.time_sorted_list.append(self.sort_with_time(one_table_set))  # 리스트에 각시간별로 분류해 정리
+        for i in self.time_sorted_list:  # 시간별로 정리된 시간표를 출력
             self.table(i)
 
     def matcher_1(self, input):
@@ -29,31 +45,29 @@ class SetMaker(Sort):
                 self.class_set.append(set_1)
                 self.class_seq.append([l])
             return
-
         # set_temp 에 self.class_set 옮기고 self.class_set 은 초기화
         set_temp = self.class_set
-
         # seq_temp 에 self.class_seq 옮기고 self.class_seq 은 초기화
         seq_temp = self.class_seq
-        self.__init__()     # self.class_set, self.class_seq 초기화
-        for m, class_set1 in enumerate(set_temp):
-            for k, class_set2 in enumerate(input):
-                if class_set1.isdisjoint(class_set2):
+        self.reset()     # self.class_set, self.class_seq 초기화
+        for m, temp_set in enumerate(set_temp):
+            for k, input_set in enumerate(input):
+                if temp_set.isdisjoint(input_set):
                     # SET
-                    unioned_set = class_set1.union(class_set2)
+                    unioned_set = temp_set.union(input_set)
                     self.class_set.append(unioned_set)
                     added_seq = seq_temp[m] + [k]
                     self.class_seq.append(added_seq)
 
 
 if __name__ == '__main__':
+    sets_list = [[{'01', '00'}, {'09', '08'}],
+                 [{'21', '11', '10', '20'}],
+                 [{'38', '36', '39', '37'}, {'49', '48', '47', '46'}],
+                 [], [], [], [], [], [], []]
 
-    sets_data = [[{0, 1, 2}, {3, 4, 5}, {20, 21, 22}],
-                 [{4, 5, 6}, {32, 33, 31}, {40, 41, 42}],
-                 [{0, 1, 2, 20, 21, 22}, {32, 10, 11, 12, 30, 31}],
-                 [{11, 12}, {21, 22}, {32, 31}],
-                 [{24, 25, 23}, {48, 44, 45, 46}],
-                 [], [], [], [], []]
 
-    test_1 = SetMaker()
-    test_1.matcher(sets_data)
+    class_names = ['first', 'second', 'third']
+
+    test = SetMaker()
+    test.matcher(sets_list, class_names)

@@ -27,9 +27,6 @@ class Data(QWidget):
         super().__init__()
         self.unify_time = []
         self.data_list = []         # 시간들의 셋들을 저장함
-        self.base_list = []         # data_list 내의 시간들의 셋들에대한 인덱스정보
-        # 각각의 data_list 의 셋들을 base_list 인덱스에 따라 수업별로 정리한정보
-        self.processed_sets = [[], [], [], [], [], [], [], [], [], []]
         self.table_making = SetMaker()
 
 
@@ -186,9 +183,9 @@ class MyApp(Data):
         class_info = ""
         for i, j in enumerate(self.table_making.class_seq[index]):
             temp_dialog_message = ""
-            for k in self.processed_sets[i][j]:
-                temp_num_week = k // 10
-                temp_num_time = k % 10
+            for k in self.sets_list[i][j]:
+                temp_num_week = int(k) // 10
+                temp_num_time = int(k) % 10
                 temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
             class_info += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
         indexed_table_list = self.table_making.lines[index * 11:index * 11 + 11]
@@ -230,9 +227,9 @@ class MyApp(Data):
         message = ""
         for i, j in enumerate(self.table_making.class_seq[index]):
             temp_dialog_message = ""
-            for k in self.processed_sets[i][j]:
-                temp_num_week = k // 10
-                temp_num_time = k % 10
+            for k in self.sets_list[i][j]:
+                temp_num_week = int(k) // 10
+                temp_num_time = int(k) % 10
                 temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
             message += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
         QMessageBox.information(self, title, message)
@@ -241,6 +238,7 @@ class Disk(MyApp):
     def __init__(self):
         super().__init__()
         self.input_time_data = []
+        self.sets_list = [[], [], [], [], [], [], [], [], [], []]
 
     def set_stack(self):
         # 월요일
@@ -297,21 +295,17 @@ class Disk(MyApp):
 
     def set_clicked(self):
         self.set_color_blue()
-        temp_time_data = []
         for i in range(10):
             if self.btns_name[i].isChecked():
-                name_value = i
+                name_index = i
                 break
-        for j in range(5):
-            if self.btns_week[j].isChecked():
-                week_value = j
-                break
+        temp_set = set(())
         for u in range(50):
             if self.unify_time[u].isChecked():
-                temp_time_data.append(u)
-        self.input_time_data.append(name_value)
-        self.input_time_data.append(temp_time_data)
-
+                btn_index = str(u)
+                temp_set.add(btn_index.zfill(2))
+        self.sets_list[name_index].append(temp_set)
+        # reset buttons
         for t in range(50):
             self.unify_time[t].setChecked(False)
 
@@ -321,21 +315,10 @@ class Disk(MyApp):
 
         :return:
         """
-
         self.btn_show.setEnabled(False)
-        for n, d in enumerate(self.input_time_data):
-            if not(n % 2):
-                self.data_list.append([])
-                self.base_list.append(d)
-                self.data_list[int(n / 2)] = self.input_time_data[n + 1]
-
-        for e, i in enumerate(self.data_list):
-            self.data_list[e] = set(i)
-
-        for j, i in enumerate(self.base_list):
-            self.processed_sets[i].append(self.data_list[j])
-        self.table_making.matcher(self.processed_sets)
+        self.table_making.matcher(self.sets_list, self.classes_input)
         self.tab3_show()
+
 
     def monday(self):
         for i in range(0, 10):

@@ -13,6 +13,16 @@ class Sort:
         self.show = ""
         self.time_sorted_list = []
         self.show_list = []
+        self.class_seq = []
+        self.class_set = []
+        self.time_sorted_list = []
+        self.name_time = []
+        self.input_list = []
+        self.name_list = []
+
+    def reset(self):
+        self.class_seq = []
+        self.class_set = []
 
     def sort_with_time(self, set_1):
         """
@@ -25,34 +35,34 @@ class Sort:
             list_time.append([])
 
         for i in set_1:
-            if i % 10 == 0:
+            if int(i[2:]) % 10 == 0:
                 list_time[0].append(i)
         for i in set_1:
-            if i % 10 == 1:
+            if int(i[2:]) % 10 == 1:
                 list_time[1].append(i)
         for i in set_1:
-            if i % 10 == 2:
+            if int(i[2:]) % 10 == 2:
                 list_time[2].append(i)
         for i in set_1:
-            if i % 10 == 3:
+            if int(i[2:]) % 10 == 3:
                 list_time[3].append(i)
         for i in set_1:
-            if i % 10 == 4:
+            if int(i[2:]) % 10 == 4:
                 list_time[4].append(i)
         for i in set_1:
-            if i % 10 == 5:
+            if int(i[2:]) % 10 == 5:
                 list_time[5].append(i)
         for i in set_1:
-            if i % 10 == 6:
+            if int(i[2:]) % 10 == 6:
                 list_time[6].append(i)
         for i in set_1:
-            if i % 10 == 7:
+            if int(i[2:]) % 10 == 7:
                 list_time[7].append(i)
         for i in set_1:
-            if i % 10 == 8:
+            if int(i[2:]) % 10 == 8:
                 list_time[8].append(i)
         for i in set_1:
-            if i % 10 == 9:
+            if int(i[2:]) % 10 == 9:
                 list_time[9].append(i)
         return list_time
 
@@ -62,26 +72,53 @@ class Sort:
                 :param set_3: 하나의 시간표 (2차원 리스트)
                 :return: ...
                 """
-        dash = "{0:^9}".format('-')
-        first_line = "     {0:^9}{1:^9}{2:^9}{3:^9}{4:^9}".format('mon', 'tue', 'wed', 'thu', 'fri')
-        self.lines.append(str(first_line))
-        for j in range(10):
-            a, b, c, d, e = dash, dash, dash, dash, dash
-            for i in set_3[j]:
-                if i // 10 == 0:
-                    a = "{0:^9}".format('mon_%d' % (j + 1))
-                if i // 10 == 1:
-                    b = "{0:^9}".format('tue_%d' % (j + 1))
-                if i // 10 == 2:
-                    c = "{0:^9}".format('wed_%d' % (j + 1))
-                if i // 10 == 3:
-                    d = "{0:^9}".format('thu_%d' % (j + 1))
-                if i // 10 == 4:
-                    e = "{0:^9}".format('fri_%d' % (j + 1))
-            class_line = "({0:^3}){1:^9}{2:^9}{3:^9}{4:^9}{5:^9}".format(j + 1, a, b, c, d, e)
-            self.lines.append(str(class_line))
-        for i in range(11):
-            self.show += str(self.lines[i]) + '\n'
+        # 한글 시간표 출력
+        if ord('가') <= ord(self.name_list[0][0]) <= ord('힣'):
+            dash = "{0:^12}".format('-')
+            first_line = "     {0:^12}{1:^12}{2:^12}{3:^12}{4:^12}".format('mon', 'tue', 'wed', 'thu', 'fri')
+            self.lines.append(str(first_line))
+            for j in range(10):
+                a, b, c, d, e = dash, dash, dash, dash, dash
+                for i in set_3[j]:
+                    length = len(self.name_list[int(i[0])][:5])
+                    print(length)
+                    x = 12 - (2 * length)
+                    if int(i[2:]) // 10 == 0:
+                        a = f"{self.name_list[int(i[0])][:5]}"
+                    if int(i[2:]) // 10 == 1:
+                        b = f"{self.name_list[int(i[0])][:5]}"
+                    if int(i[2:]) // 10 == 2:
+                        c = f"{self.name_list[int(i[0])][:5]}"
+                    if int(i[2:]) // 10 == 3:
+                        d = f"{self.name_list[int(i[0])][:5]}"
+                    if int(i[2:]) // 10 == 4:
+                        e = f"{self.name_list[int(i[0])][:5]}"
+                class_line = "({0:^3}){1:^x}{2:^x}{3:^x}{4:^x}{5:^x}".format(j + 1, a, b, c, d, e)
+                self.lines.append(str(class_line))
+            for i in range(11):
+                self.show += str(self.lines[i]) + '\n'
+        # 영어시간표 출력
+        elif ord('a') <= ord(self.name_list[0][0].lower()) <= ord('z'):
+            dash = "{0:^11}".format('-')
+            first_line = "     {0:^11}{1:^11}{2:^11}{3:^11}{4:^11}".format('mon', 'tue', 'wed', 'thu', 'fri')
+            self.lines.append(str(first_line))
+            for j in range(10):
+                a, b, c, d, e = dash, dash, dash, dash, dash
+                for i in set_3[j]:
+                    if int(i[2:]) // 10 == 0:
+                        a = f"{self.name_list[int(i[0])][:7]}"
+                    if int(i[2:]) // 10 == 1:
+                        b = f"{self.name_list[int(i[0])][:7]}"
+                    if int(i[2:]) // 10 == 2:
+                        c = f"{self.name_list[int(i[0])][:7]}"
+                    if int(i[2:]) // 10 == 3:
+                        d = f"{self.name_list[int(i[0])][:7]}"
+                    if int(i[2:]) // 10 == 4:
+                        e = f"{self.name_list[int(i[0])][:7]}"
+                class_line = "({0:^3}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
+                self.lines.append(str(class_line))
+            for i in range(11):
+                self.show += str(self.lines[i]) + '\n'
 
         show = ""
         for i in range(10):
