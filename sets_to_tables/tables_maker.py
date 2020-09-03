@@ -80,20 +80,22 @@ class Sort:
             for j in range(10):
                 a, b, c, d, e = dash, dash, dash, dash, dash
                 for i in set_3[j]:
-                    length = len(self.name_list[int(i[0])][:5])
-                    print(length)
-                    x = 12 - (2 * length)
+                    name = self.name_list[int(i[0])][:5]
+                    length = len(name)
+                    space = name.count(' ')
+                    x = 12 - length + space
                     if int(i[2:]) // 10 == 0:
-                        a = f"{self.name_list[int(i[0])][:5]}"
+                        a = f"{name}"
                     if int(i[2:]) // 10 == 1:
-                        b = f"{self.name_list[int(i[0])][:5]}"
+                        b = f"{name}"
                     if int(i[2:]) // 10 == 2:
-                        c = f"{self.name_list[int(i[0])][:5]}"
+                        c = f"{name}"
                     if int(i[2:]) // 10 == 3:
-                        d = f"{self.name_list[int(i[0])][:5]}"
+                        d = f"{name}"
                     if int(i[2:]) // 10 == 4:
-                        e = f"{self.name_list[int(i[0])][:5]}"
-                class_line = "({0:^3}){1:^x}{2:^x}{3:^x}{4:^x}{5:^x}".format(j + 1, a, b, c, d, e)
+                        e = f"{name}"
+                class_line = "({0:^3}){1}{2}{3}{4}{5}".format(j + 1, a.center(x),
+                                                              b.center(x), c.center(x), d.center(x), e.center(x))
                 self.lines.append(str(class_line))
             for i in range(11):
                 self.show += str(self.lines[i]) + '\n'
@@ -105,16 +107,17 @@ class Sort:
             for j in range(10):
                 a, b, c, d, e = dash, dash, dash, dash, dash
                 for i in set_3[j]:
+                    name = self.name_list[int(i[0])][:9]
                     if int(i[2:]) // 10 == 0:
-                        a = f"{self.name_list[int(i[0])][:7]}"
+                        a = f"{name}"
                     if int(i[2:]) // 10 == 1:
-                        b = f"{self.name_list[int(i[0])][:7]}"
+                        b = f"{name}"
                     if int(i[2:]) // 10 == 2:
-                        c = f"{self.name_list[int(i[0])][:7]}"
+                        c = f"{name}"
                     if int(i[2:]) // 10 == 3:
-                        d = f"{self.name_list[int(i[0])][:7]}"
+                        d = f"{name}"
                     if int(i[2:]) // 10 == 4:
-                        e = f"{self.name_list[int(i[0])][:7]}"
+                        e = f"{name}"
                 class_line = "({0:^3}){1:^11}{2:^11}{3:^11}{4:^11}{5:^11}".format(j + 1, a, b, c, d, e)
                 self.lines.append(str(class_line))
             for i in range(11):

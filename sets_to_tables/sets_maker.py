@@ -61,13 +61,4 @@ class SetMaker(Sort):
 
 
 if __name__ == '__main__':
-    sets_list = [[{'01', '00'}, {'09', '08'}],
-                 [{'21', '11', '10', '20'}],
-                 [{'38', '36', '39', '37'}, {'49', '48', '47', '46'}],
-                 [], [], [], [], [], [], []]
-
-
-    class_names = ['first', 'second', 'third']
-
-    test = SetMaker()
-    test.matcher(sets_list, class_names)
+    pass

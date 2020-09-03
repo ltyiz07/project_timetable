@@ -1,6 +1,7 @@
 """
 시간표 자동생성 프로그램
 """
+import os
 import sys
 from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 from PyQt5.QtWidgets import QWidget
@@ -42,6 +43,7 @@ class MyApp(Data):
         self.stack = QStackedWidget(self)
 
         # tab3 setting
+        self.btn_show = QPushButton("show")
         self.tab3_group_11 = QVBoxLayout()
         self.tab3_group_22 = QVBoxLayout()
         self.stack2 = QStackedWidget(self)
@@ -71,9 +73,9 @@ class MyApp(Data):
         #
 
         #
-        ## tab3 레이아웃 설정
+        # tab3 레이아웃 설정
         self.Tab3()
-        ## tab3 레이아웃 설정 반영
+        # tab3 레이아웃 설정 반영
         #
 
         self.tabs.addTab(self.tab1, "수업 이름 설정")
@@ -163,7 +165,6 @@ class MyApp(Data):
         group_2.setLayout(self.tab3_group_22)
         layout_3.addWidget(self.stack2, 0, 1, 1, 3)
 
-        self.btn_show = QPushButton("show")
         save = QPushButton("SAVE")
         info = QPushButton("info")
 
@@ -197,7 +198,7 @@ class MyApp(Data):
             f.write('\n')
             f.write(class_info)
             f.write('\n')
-            f.write("(set font to 'consolas' or any monospaced font)")
+            f.write("(set font to 'D2CODING' or any monospaced font)")
 
     def tab3_show(self):
         self.view = QListView(self)
@@ -209,7 +210,7 @@ class MyApp(Data):
             table_box = QVBoxLayout()
             for i in self.table_making.lines[option * 11:(option * 11 + 11)]:
                 label = QLabel(i, self)
-                label.setFont(QFont('consolas'))
+                label.setFont(QFont('D2CODING'))
                 table_box.addWidget(label)
             table.setLayout(table_box)
             self.stack2.addWidget(table)
@@ -233,6 +234,7 @@ class MyApp(Data):
                 temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
             message += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
         QMessageBox.information(self, title, message)
+
 
 class Disk(MyApp):
     def __init__(self):
