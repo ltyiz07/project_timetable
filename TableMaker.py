@@ -88,7 +88,8 @@ class MyApp(Data):
         self.setLayout(vbox)
 
         self.setWindowTitle('Timetable Maker')
-        self.setWindowIcon(QIcon('lotus.png'))
+        lotus = QIcon(self.resource_path('./assets/lotus.ico'))
+        self.setWindowIcon(lotus)
         self.setGeometry(1200, 500, 500, 500)
         self.show()
 
@@ -210,7 +211,7 @@ class MyApp(Data):
             table_box = QVBoxLayout()
             for i in self.table_making.lines[option * 11:(option * 11 + 11)]:
                 label = QLabel(i, self)
-                label.setFont(QFont('D2CODING'))
+                label.setFont(QFont('D2Coding Bold'))
                 table_box.addWidget(label)
             table.setLayout(table_box)
             self.stack2.addWidget(table)
@@ -234,6 +235,11 @@ class MyApp(Data):
                 temp_dialog_message += f"{self.week[temp_num_week]}_{temp_num_time + 1}, "
             message += "{0} ---> {1} \n".format(str(self.classes_input[i].text()), temp_dialog_message)
         QMessageBox.information(self, title, message)
+
+    def resource_path(self, relative_path):
+        if hasattr(sys, '_MEIPASS'):
+            return os.path.join(sys._MEIPASS, relative_path)
+        return os.path.join(os.path.abspath('.'), relative_path)
 
 
 class Disk(MyApp):
