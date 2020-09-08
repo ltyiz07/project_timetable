@@ -11,7 +11,7 @@ class SetMaker(Sort):
     def __init__(self):
         super().__init__()
 
-    def matcher(self, input_list, name_list):
+    def matcher_excute(self, input_list, name_list):
         """
 
         :param input_list: 2차원 리스트 속의 1차원 셋 총 3차원
@@ -26,7 +26,7 @@ class SetMaker(Sort):
             self.name_list += (n,)
         for i in input_list:
             if i:
-                self.matcher_1(i)
+                self.input_matcher(i)
 
         for j, seq in enumerate(self.class_seq):
             self.name_time.append([])
@@ -39,7 +39,7 @@ class SetMaker(Sort):
         for i in self.time_sorted_list:  # 시간별로 정리된 시간표를 출력
             self.table(i)
 
-    def matcher_1(self, input):
+    def input_matcher(self, input):
         if not self.class_set:      # input = first 일때 만 동작
             for l, set_1 in enumerate(input):
                 self.class_set.append(set_1)

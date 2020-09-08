@@ -324,7 +324,7 @@ class Disk(MyApp):
         :return:
         """
         self.btn_show.setEnabled(False)
-        self.table_making.matcher(self.sets_list, self.classes_input)
+        self.table_making.matcher_excute(self.sets_list, self.classes_input)
         self.tab3_show()
 
 
