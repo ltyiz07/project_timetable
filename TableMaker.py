@@ -303,6 +303,7 @@ class Disk(MyApp):
 
     def set_clicked(self):
         self.set_color_blue()
+        name_index = 0
         for i in range(10):
             if self.btns_name[i].isChecked():
                 name_index = i
@@ -312,7 +313,8 @@ class Disk(MyApp):
             if self.unify_time[u].isChecked():
                 btn_index = str(u)
                 temp_set.add(btn_index.zfill(2))
-        self.sets_list[name_index].append(temp_set)
+        if temp_set:
+            self.sets_list[name_index].append(temp_set)
         # reset buttons
         for t in range(50):
             self.unify_time[t].setChecked(False)
