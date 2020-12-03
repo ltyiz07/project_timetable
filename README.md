@@ -8,4 +8,4 @@
 5. 'info' 클릭시 해당 시간표에대한 정보 보여줌.
 
 
---------download: https://drive.google.com/file/d/1jinxSXsV5XDI_dTptqgwJrhr73v-OI0G/view?usp=sharing
+--------download .exe file : https://drive.google.com/file/d/1jinxSXsV5XDI_dTptqgwJrhr73v-OI0G/view?usp=sharing
