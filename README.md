@@ -9,3 +9,7 @@
 
 
 --------download .exe file : https://drive.google.com/file/d/1jinxSXsV5XDI_dTptqgwJrhr73v-OI0G/view?usp=sharing
+
+1. If D2Font is not install in your computer, then please install D2Font that included.
+2. for excute this software open folder TableMaker and run TableMaker.exe (with lotus icon).
+3. input classes and classes times.click "next" and "show" button.
